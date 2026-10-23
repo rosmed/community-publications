@@ -1,29 +1,30 @@
-// Configuration and shared utility functions for SlicerROS2 Community Publications
+// Configuration and shared utility functions for SlicerROS2 & ROS-IGTL Community Publications
 
 const CONFIG = {
-    PACKAGE_MAP: {},
-    PACKAGE_DESCRIPTIONS: {},
+    LIBRARY_MAP: {},
+    LIBRARY_DESCRIPTIONS: {},
 
     async init() {
         try {
             const response = await fetch('custom_tags.json');
             const data = await response.json();
-            if (data.packages) {
-                data.packages.forEach(pkg => {
-                    this.PACKAGE_MAP[pkg.id] = pkg.name;
-                    this.PACKAGE_DESCRIPTIONS[pkg.id] = pkg.description;
+            if (data.rosmed_libraries) {
+                data.rosmed_libraries.forEach(lib => {
+                    this.LIBRARY_MAP[lib.id] = lib.name;
+                    this.LIBRARY_DESCRIPTIONS[lib.id] = lib.description;
                 });
             }
             return true;
         } catch (error) {
-            // Fallback defaults if fetch fails
-            this.PACKAGE_MAP = {
-                'slicer_ros2': 'SlicerROS2',
-                'ros2_igtl': 'ros2_igtl_bridge'
+            this.LIBRARY_MAP = {
+                'SlicerROS2': 'SlicerROS2',
+                'ROS2_IGTL': 'ROS2_IGTL',
+                'ROS_IGTL': 'ROS_IGTL'
             };
-            this.PACKAGE_DESCRIPTIONS = {
-                'slicer_ros2': '3D Slicer module providing native ROS 2 node communication, tf2 tracking, and robot rendering.',
-                'ros2_igtl': 'OpenIGTLink bridge node for streaming medical data and tracking between ROS 2 and 3D Slicer.'
+            this.LIBRARY_DESCRIPTIONS = {
+                'SlicerROS2': '3D Slicer module providing native ROS 2 node communication, tf2 tracking, and robot rendering.',
+                'ROS2_IGTL': 'ROS 2 OpenIGTLink bridge node for streaming medical data and tracking between ROS 2 and 3D Slicer.',
+                'ROS_IGTL': 'The original ROS 1 OpenIGTLink bridge (ROS-IGTL-Bridge) for image-guided therapy.'
             };
             return false;
         }

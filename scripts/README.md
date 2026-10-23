@@ -30,7 +30,7 @@ python3 scripts/find_new_papers.py --query "SlicerROS2" "ros2_igtl_bridge"
 ```
 
 **Interactive prompts:**
-* `y` — add to `publications.bib` (you will be prompted to select the package: `slicer_ros2`, `ros2_igtl`, or `both`)
+* `y` — add to `publications.bib` (you will be prompted to select the library: `SlicerROS2`, `ROS2_IGTL`, `ROS_IGTL`, or `SlicerROS2 and ROS2_IGTL`)
 * `n` — reject (saved to `rejected_papers.json` so it won't be suggested again)
 * `o` — open publication URL / DOI in your web browser
 * `s` — skip (will be suggested again on future runs)

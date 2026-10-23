@@ -11,8 +11,10 @@
     --accent: #6366f1;
     --pkg-slicer: #0d9488;
     --pkg-slicer-bg: #ccfbf1;
-    --pkg-igtl: #7c3aed;
-    --pkg-igtl-bg: #ede9fe;
+    --pkg-ros2-igtl: #7c3aed;
+    --pkg-ros2-igtl-bg: #ede9fe;
+    --pkg-ros-igtl: #c2410c;
+    --pkg-ros-igtl-bg: #ffedd5;
     --bg-page: #f8fafc;
     --bg-surface: #ffffff;
     --bg-surface-elevated: #f1f5f9;
@@ -36,8 +38,10 @@
     --accent: #818cf8;
     --pkg-slicer: #2dd4bf;
     --pkg-slicer-bg: #134e4a;
-    --pkg-igtl: #a78bfa;
-    --pkg-igtl-bg: #4c1d95;
+    --pkg-ros2-igtl: #a78bfa;
+    --pkg-ros2-igtl-bg: #4c1d95;
+    --pkg-ros-igtl: #fb923c;
+    --pkg-ros-igtl-bg: #7c2d12;
     --bg-page: #0b1329;
     --bg-surface: #131f37;
     --bg-surface-elevated: #1e2942;
@@ -386,9 +390,14 @@ main {
     color: var(--pkg-slicer);
 }
 
-.badge-igtl {
-    background: var(--pkg-igtl-bg);
-    color: var(--pkg-igtl);
+.badge-ros2-igtl {
+    background: var(--pkg-ros2-igtl-bg);
+    color: var(--pkg-ros2-igtl);
+}
+
+.badge-ros-igtl {
+    background: var(--pkg-ros-igtl-bg);
+    color: var(--pkg-ros-igtl);
 }
 
 .badge-type {

@@ -44,7 +44,7 @@ FIELD_ORDER = [
     'doi', 'url', 'urldate', 'ieeexplore',
     'semanticscholar', 'arxiv', 'arxivid', 'archiveprefix', 'primaryclass', 'eprint',
     'pdf', 'openaccesspdf', 'howpublished', 'pubstate', 'date', 'tppubtype',
-    'package', 'date_added',
+    'rosmed_library', 'date_added',
     'keywords', 'abstract',
 ]
 
@@ -151,6 +151,9 @@ def cleanup_bib(file_path):
 
     # Clean up and normalize fields
     for entry in bib_database.entries:
+        if 'package' in entry:
+            entry['rosmed_library'] = entry.pop('package')
+
         # Remove legacy dVRK-specific fields if any crept in
         for legacy in ['research_field', 'data_type', 'dvrk_site', 'dvrk_sites', 'dvrk_cites']:
             entry.pop(legacy, None)

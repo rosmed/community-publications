@@ -41,6 +41,8 @@ DEFAULT_QUERIES = [
     "ros2_igtl_bridge",
     "ros2-igtl",
     "ros2_igtl",
+    "ROS-IGTL-Bridge",
+    "ros_igtl_bridge",
     '"3D Slicer" ROS2',
     '"3D Slicer" "ROS 2"',
     "OpenIGTLink ROS2",
@@ -103,16 +105,21 @@ def is_relevant(title: str, abstract: str = "", venue: str = "") -> bool:
     return matches >= 2
 
 
-def guess_package(text: str) -> str:
+def guess_library(text: str) -> str:
     lower = text.lower()
-    has_slicer = "slicerros2" in lower or "slicer_ros2" in lower or "slicer-ros2" in lower or ("slicer" in lower and ("ros2" in lower or "ros 2" in lower))
-    has_igtl = "igtl" in lower or "openigtlink" in lower or "ros2_igtl" in lower or "ros2-igtl" in lower
+    has_slicer_ros2 = "slicerros2" in lower or "slicer_ros2" in lower or "slicer-ros2" in lower
+    has_ros2 = "ros2" in lower or "ros 2" in lower
+    has_igtl = "igtl" in lower or "openigtlink" in lower
 
-    if has_slicer and has_igtl:
-        return "slicer_ros2 and ros2_igtl"
+    if has_slicer_ros2 and (has_igtl and has_ros2):
+        return "SlicerROS2 and ROS2_IGTL"
+    if has_slicer_ros2:
+        return "SlicerROS2"
     if has_igtl:
-        return "ros2_igtl"
-    return "slicer_ros2"
+        if has_ros2 or "ros2_igtl" in lower or "ros2-igtl" in lower:
+            return "ROS2_IGTL"
+        return "ROS_IGTL"
+    return "SlicerROS2"
 
 
 def load_existing_data(bib_path: str) -> tuple[set[str], set[str]]:
@@ -377,14 +384,13 @@ def search_arxiv(query: str, start_year: int, end_year: int, existing_dois: set[
     return results
 
 
-def append_to_bib(paper: dict, bib_path: str, package_tag: str) -> bool:
+def append_to_bib(paper: dict, bib_path: str, library_tag: str) -> bool:
     bib = paper.get("bibtex")
     today = datetime.date.today().isoformat()
 
     if bib:
-        # Inject package, date_added, and abstract if missing
-        if "package" not in bib:
-            bib = re.sub(r",\s*\n", f",\n  package = {{{package_tag}}},\n", bib, count=1)
+        if "rosmed_library" not in bib:
+            bib = re.sub(r",\s*\n", f",\n  rosmed_library = {{{library_tag}}},\n", bib, count=1)
         if "date_added" not in bib:
             bib = re.sub(r",\s*\n", f",\n  date_added = {{{today}}},\n", bib, count=1)
         if paper.get("abstract") and "abstract" not in bib:
@@ -413,7 +419,7 @@ def append_to_bib(paper: dict, bib_path: str, package_tag: str) -> bool:
             f"  title = {{{paper['title']}}},\n"
             f"  year = {{{year}}},\n"
             f"{doi_line}{url_line}{arxiv_line}{abstract_line}"
-            f"  package = {{{package_tag}}},\n"
+            f"  rosmed_library = {{{library_tag}}},\n"
             f"  date_added = {{{today}}},\n"
             f"}}\n\n"
         )
@@ -493,9 +499,9 @@ def main():
             else:
                 print("failed, will use metadata fallback.")
 
-        # Default package guess
+        # Default library guess
         combined_text = f"{paper['title']} {paper.get('abstract', '')}"
-        guessed_pkg = guess_package(combined_text)
+        guessed_lib = guess_library(combined_text)
 
         # Open in browser?
         open_url = f"https://doi.org/{paper['doi']}" if paper.get("doi") else (paper.get("arxiv") or paper.get("url"))
@@ -509,19 +515,21 @@ def main():
                     print("  No URL available.")
                 continue
             elif choice in ("y", "yes"):
-                pkg_input = input(f"  Package tag [1: slicer_ros2, 2: ros2_igtl, 3: both] (default: {guessed_pkg}): ").strip()
-                if pkg_input == "1":
-                    selected_pkg = "slicer_ros2"
-                elif pkg_input == "2":
-                    selected_pkg = "ros2_igtl"
-                elif pkg_input == "3":
-                    selected_pkg = "slicer_ros2 and ros2_igtl"
-                elif pkg_input:
-                    selected_pkg = pkg_input
+                lib_input = input(f"  rosmed_library tag [1: SlicerROS2, 2: ROS2_IGTL, 3: ROS_IGTL, 4: SlicerROS2 and ROS2_IGTL] (default: {guessed_lib}): ").strip()
+                if lib_input == "1":
+                    selected_lib = "SlicerROS2"
+                elif lib_input == "2":
+                    selected_lib = "ROS2_IGTL"
+                elif lib_input == "3":
+                    selected_lib = "ROS_IGTL"
+                elif lib_input == "4":
+                    selected_lib = "SlicerROS2 and ROS2_IGTL"
+                elif lib_input:
+                    selected_lib = lib_input
                 else:
-                    selected_pkg = guessed_pkg
+                    selected_lib = guessed_lib
 
-                if append_to_bib(paper, args.bib, selected_pkg):
+                if append_to_bib(paper, args.bib, selected_lib):
                     existing_titles.add(normalize_title(paper["title"]))
                     if paper.get("doi"):
                         existing_dois.add(normalize_doi(paper["doi"]))

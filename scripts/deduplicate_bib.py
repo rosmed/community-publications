@@ -159,7 +159,7 @@ def display_entry(label: str, e: dict) -> None:
     year = e.get("year", "????")
     venue = e.get("journal") or e.get("booktitle") or e.get("howpublished") or ""
     doi = e.get("doi", "")
-    pkg = e.get("package", "")
+    lib = e.get("rosmed_library", "")
 
     fields = [k for k in entry_display_fields(e) if e[k].strip()]
     f_str = ", ".join(sorted(fields))
@@ -174,16 +174,16 @@ def display_entry(label: str, e: dict) -> None:
         wrapped.append(f_str)
 
     print(f"  ┌─ [{label}]  @{e.get('ENTRYTYPE','?')}{{{e['ID']},")
-    print(f"  │  Title:  {title}")
-    print(f"  │  Author: {authors}")
-    print(f"  │  Year:   {year}   Venue: {venue[:50]}")
+    print(f"  │  Title:   {title}")
+    print(f"  │  Author:  {authors}")
+    print(f"  │  Year:    {year}   Venue: {venue[:50]}")
     if doi:
-        print(f"  │  DOI:    https://doi.org/{normalize_doi(doi)}")
-    if pkg:
-        print(f"  │  Package:{pkg}")
-    print(f"  │  Fields: {wrapped[0] if wrapped else ''} ({len(fields)} total)")
+        print(f"  │  DOI:     https://doi.org/{normalize_doi(doi)}")
+    if lib:
+        print(f"  │  Library: {lib}")
+    print(f"  │  Fields:  {wrapped[0] if wrapped else ''} ({len(fields)} total)")
     for wl in wrapped[1:]:
-        print(f"  │          {wl}")
+        print(f"  │           {wl}")
     print(f"  └{'─'*65}")
 
 
@@ -193,7 +193,7 @@ def display_entry(label: str, e: dict) -> None:
 
 UNION_FIELDS = {
     "doi", "semanticscholar", "arxiv", "ieeexplore", "url",
-    "package", "abstract", "keywords", "pages", "volume",
+    "rosmed_library", "abstract", "keywords", "pages", "volume",
     "number", "isbn", "issn", "openaccesspdf", "pdf",
 }
 
@@ -222,12 +222,12 @@ def merge_entries(a: dict, b: dict) -> dict:
                 base[field] = value
             elif value:
                 base[field] = min(existing, value)
-        elif field == "package":
+        elif field == "rosmed_library":
             if not existing:
                 base[field] = value
             elif existing != value:
-                pkgs = set(p.strip() for p in (existing + " and " + value).split(" and ") if p.strip())
-                base[field] = " and ".join(sorted(pkgs))
+                libs = set(p.strip() for p in (existing + " and " + value).split(" and ") if p.strip())
+                base[field] = " and ".join(sorted(libs))
         elif field in UNION_FIELDS:
             if not existing:
                 base[field] = value
@@ -255,7 +255,7 @@ FIELD_ORDER = [
     "semanticscholar", "arxiv", "arxivid", "archiveprefix", "primaryclass", "eprint",
     "pdf", "openaccesspdf", "howpublished", "pubstate", "date", "tppubtype",
     "copyright", "language",
-    "package", "date_added",
+    "rosmed_library", "date_added",
     "keywords", "abstract",
 ]
 

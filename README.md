@@ -28,11 +28,12 @@ When hosted via GitHub Pages, the site runs directly from the root of this repos
 
 In addition to standard BibTeX fields (`author`, `title`, `year`, `journal`, `doi`, `abstract`, etc.), entries in `publications.bib` support the following custom fields:
 
-### `package`
-Indicates the software package(s) used or discussed in the work:
-* `package={slicer_ros2}`: works using or extending `SlicerROS2`
-* `package={ros2_igtl}`: works using `ros2_igtl_bridge` (or OpenIGTLink with ROS 2)
-* `package={slicer_ros2 and ros2_igtl}`: works using or comparing both
+### `rosmed_library`
+Indicates the software package(s) or library used or discussed in the work:
+* `rosmed_library={SlicerROS2}`: works using or extending `SlicerROS2`
+* `rosmed_library={ROS2_IGTL}`: works using `ros2_igtl_bridge` (ROS 2 OpenIGTLink bridge)
+* `rosmed_library={ROS_IGTL}`: works using `ROS-IGTL-Bridge` (ROS 1 OpenIGTLink bridge)
+* `rosmed_library={SlicerROS2 and ROS2_IGTL}`: works using or benchmarking multiple libraries
 
 ### `date_added`
 Records the date (in `YYYY-MM-DD` ISO format) when the entry was added to the database:

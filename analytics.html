@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analytics - SlicerROS2 Community Publications</title>
+    <title>Analytics - Slicer & ROS Community Publications</title>
     <meta name="description"
-        content="Publication trends, venue distributions, and package breakdowns for SlicerROS2 and ros2_igtl_bridge research.">
+        content="Publication trends, venue distributions, and library breakdowns for SlicerROS2, ROS2_IGTL, and ROS_IGTL research.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
 
     <script>
@@ -22,8 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
-    <script src="config.js?v=1"></script>
-    <link rel="stylesheet" href="styles.css?v=1">
+    <script src="config.js?v=2"></script>
+    <link rel="stylesheet" href="styles.css?v=2">
 </head>
 
 <body>
@@ -32,11 +32,11 @@
             <div class="container">
                 <div class="header-top">
                     <div class="header-brand">
-                        <span class="logo-badge">ROS 2</span>
+                        <span class="logo-badge">ROS 2 / ROS</span>
                         <div>
                             <h1>Community Analytics & Trends</h1>
                             <p class="subtitle">
-                                Publication trends and package breakdowns •
+                                Publication trends and library breakdowns for SlicerROS2, ROS2_IGTL, and ROS_IGTL •
                                 <a href="https://github.com/rosmed/slicer_ros2_module" target="_blank"
                                     rel="noopener noreferrer">GitHub Module</a>
                             </p>
@@ -71,11 +71,15 @@
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">{{ countSlicer }}</span>
-                    <span class="stat-label">SlicerROS2 Papers</span>
+                    <span class="stat-label">SlicerROS2</span>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number">{{ countIgtl }}</span>
-                    <span class="stat-label">ROS2-IGTL Papers</span>
+                    <span class="stat-number">{{ countRos2Igtl }}</span>
+                    <span class="stat-label">ROS2_IGTL</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countRosIgtl }}</span>
+                    <span class="stat-label">ROS_IGTL</span>
                 </div>
             </div>
 
@@ -89,7 +93,7 @@
                 </div>
 
                 <div class="chart-card">
-                    <h3>📦 Package Breakdown</h3>
+                    <h3>📦 rosmed_library Distribution</h3>
                     <div class="chart-wrapper">
                         <canvas id="chartPackage"></canvas>
                     </div>
@@ -120,7 +124,7 @@
         </footer>
     </div>
 
-    <script src="analytics.js?v=1"></script>
+    <script src="analytics.js?v=2"></script>
 </body>
 
 </html>

@@ -20,10 +20,13 @@ createApp({
             return `${min} – ${max}`;
         },
         countSlicer() {
-            return this.publications.filter(p => p.package && p.package.includes('slicer_ros2')).length;
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('SlicerROS2')).length;
         },
-        countIgtl() {
-            return this.publications.filter(p => p.package && p.package.includes('ros2_igtl')).length;
+        countRos2Igtl() {
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS2_IGTL')).length;
+        },
+        countRosIgtl() {
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS_IGTL')).length;
         }
     },
     methods: {
@@ -46,7 +49,7 @@ createApp({
                             author: CONFIG.convertLatexToUnicode(tags.author || ''),
                             year: tags.year || '',
                             journal: CONFIG.convertLatexToUnicode(tags.journal || tags.booktitle || tags.school || ''),
-                            package: (tags.package || '').replace(/[{}]/g, '').trim(),
+                            rosmed_library: (tags.rosmed_library || tags.package || '').replace(/[{}]/g, '').trim(),
                         };
                     });
 
@@ -71,10 +74,11 @@ createApp({
                 grid: dark ? '#233554' : '#e2e8f0',
                 primary: '#0284c7',
                 slicer: '#0d9488',
-                igtl: '#7c3aed',
+                ros2_igtl: '#7c3aed',
+                ros_igtl: '#c2410c',
                 accent: '#6366f1',
                 colors: [
-                    '#0284c7', '#0d9488', '#7c3aed', '#f59e0b', '#ec4899', '#10b981', '#6366f1'
+                    '#0284c7', '#0d9488', '#7c3aed', '#c2410c', '#ec4899', '#10b981', '#6366f1'
                 ]
             };
         },
@@ -123,20 +127,21 @@ createApp({
                 });
             }
 
-            // 2. Breakdown by Package
+            // 2. Breakdown by rosmed_library
             const ctxPkg = document.getElementById('chartPackage');
             if (ctxPkg) {
+                const slicerOnly = this.publications.filter(p => p.rosmed_library === 'SlicerROS2').length;
+                const ros2IgtlOnly = this.publications.filter(p => p.rosmed_library === 'ROS2_IGTL').length;
+                const rosIgtlOnly = this.publications.filter(p => p.rosmed_library === 'ROS_IGTL').length;
+                const multiLib = this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes(' and ')).length;
+
                 this.chartInstances.pkg = new Chart(ctxPkg, {
                     type: 'doughnut',
                     data: {
-                        labels: ['SlicerROS2 Only', 'ros2_igtl_bridge Only', 'Both / Interoperable'],
+                        labels: ['SlicerROS2 Only', 'ROS2_IGTL Only', 'ROS_IGTL Only', 'Multi-Library / Integrated'],
                         datasets: [{
-                            data: [
-                                this.publications.filter(p => p.package === 'slicer_ros2').length,
-                                this.publications.filter(p => p.package === 'ros2_igtl').length,
-                                this.publications.filter(p => p.package && p.package.includes('slicer_ros2') && p.package.includes('ros2_igtl')).length,
-                            ],
-                            backgroundColor: [colors.slicer, colors.igtl, colors.primary],
+                            data: [slicerOnly, ros2IgtlOnly, rosIgtlOnly, multiLib],
+                            backgroundColor: [colors.slicer, colors.ros2_igtl, colors.ros_igtl, colors.accent],
                             borderWidth: 0,
                         }]
                     },
@@ -196,7 +201,6 @@ createApp({
             this.publications.forEach(p => {
                 let v = p.journal.trim();
                 if (!v) return;
-                // Normalize some venues
                 if (v.includes('Hamlyn')) v = 'Hamlyn Symposium (HSMR)';
                 if (v.includes('Medical Robotics and Bionics')) v = 'IEEE TMRB';
                 if (v.includes('Computer Assisted Radiology')) v = 'IJCARS';

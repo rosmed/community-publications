@@ -6,7 +6,7 @@ createApp({
             publications: [],
             searchQuery: '',
             searchInAbstract: false,
-            selectedPackage: '',
+            selectedLibrary: '',
             selectedType: '',
             startYear: '',
             endYear: '',
@@ -32,12 +32,12 @@ createApp({
         filteredPublications() {
             let filtered = this.publications;
 
-            // Package filter
-            if (this.selectedPackage) {
+            // Library filter (rosmed_library)
+            if (this.selectedLibrary) {
                 filtered = filtered.filter(pub => {
-                    if (!pub.package) return false;
-                    const pkgs = pub.package.split(' and ').map(p => p.trim());
-                    return pkgs.includes(this.selectedPackage);
+                    if (!pub.rosmed_library) return false;
+                    const libs = pub.rosmed_library.split(' and ').map(p => p.trim());
+                    return libs.includes(this.selectedLibrary);
                 });
             }
 
@@ -118,10 +118,13 @@ createApp({
             return CONFIG.calculateTotalAuthors(this.filteredPublications);
         },
         countSlicerRos2() {
-            return this.publications.filter(p => p.package && p.package.includes('slicer_ros2')).length;
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('SlicerROS2')).length;
         },
         countRos2Igtl() {
-            return this.publications.filter(p => p.package && p.package.includes('ros2_igtl')).length;
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS2_IGTL')).length;
+        },
+        countRosIgtl() {
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS_IGTL')).length;
         }
     },
     methods: {
@@ -140,7 +143,7 @@ createApp({
                     .map(entry => {
                         const tags = entry.entryTags;
                         const key = entry.citationKey;
-                        const pkg = (tags.package || '').replace(/[{}]/g, '').trim();
+                        const lib = (tags.rosmed_library || tags.package || '').replace(/[{}]/g, '').trim();
 
                         return {
                             id: key,
@@ -160,7 +163,7 @@ createApp({
                             arxiv: tags.arxiv || tags.eprint || '',
                             openaccesspdf: tags.openaccesspdf || '',
                             abstract: CONFIG.convertLatexToUnicode(tags.abstract || ''),
-                            package: pkg,
+                            rosmed_library: lib,
                             date_added: (tags.date_added || '').replace(/[{}]/g, ''),
                             bibtexText: rawEntries[key] || '',
                             showAbstract: false,
@@ -186,7 +189,6 @@ createApp({
                     this.endYear = this.availableYears[0];
                 }
 
-                // Handle hash link navigation
                 this.$nextTick(() => {
                     this.handleHashNavigation();
                 });
@@ -228,13 +230,20 @@ createApp({
             return map[type.toLowerCase()] || type;
         },
 
-        parsePackages(pkgStr) {
-            if (!pkgStr) return [];
-            return pkgStr.split(' and ').map(p => p.trim()).filter(Boolean);
+        parseLibraries(libStr) {
+            if (!libStr) return [];
+            return libStr.split(' and ').map(p => p.trim()).filter(Boolean);
         },
 
-        packageName(id) {
-            return CONFIG.PACKAGE_MAP[id] || id;
+        libraryName(id) {
+            return CONFIG.LIBRARY_MAP[id] || id;
+        },
+
+        libraryBadgeClass(id) {
+            if (id === 'SlicerROS2') return 'badge-slicer';
+            if (id === 'ROS2_IGTL') return 'badge-ros2-igtl';
+            if (id === 'ROS_IGTL') return 'badge-ros-igtl';
+            return 'badge-type';
         },
 
         toggleAbstract(pub) {
@@ -310,7 +319,7 @@ createApp({
         downloadBibtex() {
             const allText = this.filteredPublications.map(p => p.bibtexText).filter(Boolean).join('\n\n');
             const blob = new Blob([allText], { type: 'text/plain;charset=utf-8' });
-            this.triggerDownload(blob, 'slicer_ros2_publications.bib');
+            this.triggerDownload(blob, 'rosmed_publications.bib');
         },
 
         downloadRis(pub) {
@@ -322,7 +331,7 @@ createApp({
         downloadAllRis() {
             const allRis = this.filteredPublications.map(p => CONFIG.generateRis(p)).join('\r\n\r\n');
             const blob = new Blob([allRis], { type: 'application/x-research-info-systems;charset=utf-8' });
-            this.triggerDownload(blob, 'slicer_ros2_publications.ris');
+            this.triggerDownload(blob, 'rosmed_publications.ris');
         },
 
         triggerDownload(blob, filename) {
@@ -339,7 +348,7 @@ createApp({
         resetFilters() {
             this.searchQuery = '';
             this.searchInAbstract = false;
-            this.selectedPackage = '';
+            this.selectedLibrary = '';
             this.selectedType = '';
             if (this.availableYears.length > 0) {
                 this.startYear = this.availableYears[this.availableYears.length - 1];
@@ -354,7 +363,6 @@ createApp({
             if (!hash) return;
             const target = this.publicationMap[hash];
             if (target) {
-                // Ensure target is visible in current pagination
                 const index = this.filteredPublications.findIndex(p => p.id === hash);
                 if (index !== -1) {
                     this.currentPage = Math.floor(index / this.itemsPerPage) + 1;

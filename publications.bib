@@ -1,4 +1,4 @@
-@misc{UnifiedPlatform2026,
+@misc{Tokuda2023,
   author = {Coleman Farvolden and Kian Hashtrudi-Zaad and Laura Connolly and Colton Barr and Gabor Fichtinger},
   title = {A Unified Platform and Quality Assurance Framework for 3D Ultrasound Reconstruction with Robotic, Optical, and Electromagnetic Tracking},
   year = {2026},
@@ -9,7 +9,23 @@
   eprint = {2603.20077},
   openaccesspdf = {https://arxiv.org/pdf/2603.20077.pdf},
   howpublished = {arXiv preprint arXiv:2603.20077},
-  package = {slicer_ros2 and ros2_igtl},
+  rosmed_library = {ROS_IGTL},
+  date_added = {2026-08-31},
+  abstract = {Three-dimensional (3D) Ultrasound (US) can facilitate diagnosis, treatment planning, and image-guided therapy. However, current studies rarely provide a comprehensive evaluation of volumetric accuracy and reproducibility, highlighting the need for robust Quality Assurance (QA) frameworks, particularly for tracked 3D US reconstruction using freehand or robotic acquisition. This study presents a QA framework for 3D US reconstruction and a flexible open source platform for tracked US research. A custom phantom containing geometric inclusions with varying symmetry properties enables straightforward evaluation of optical, electromagnetic, and robotic kinematic tracking for 3D US at different scanning speeds and insonation angles. A standardised pipeline performs real-time segmentation and 3D reconstruction of geometric targets (DSC = 0.97, FPS = 46) without GPU acceleration, followed by automated registration and comparison with ground-truth geometries. Applying this framework showed that our robotic 3D US achieves state-of-the-art reconstruction performance (DSC-3D = 0.94 +- 0.01, HD95 = 1.17 +- 0.12), approaching the spatial resolution limit imposed by the transducer. This work establishes a flexible experimental platform and a reproducible validation methodology for 3D US reconstruction. The proposed framework enables robust cross-platform comparisons and improved reporting practices, supporting the safe and effective clinical translation of 3D ultrasound in diagnostic and image-guided therapy applications.},
+}
+
+@misc{Tokuda2023,
+  author = {Coleman Farvolden and Kian Hashtrudi-Zaad and Laura Connolly and Colton Barr and Gabor Fichtinger},
+  title = {A Unified Platform and Quality Assurance Framework for 3D Ultrasound Reconstruction with Robotic, Optical, and Electromagnetic Tracking},
+  year = {2026},
+  doi = {10.48550/arxiv.2603.20077},
+  url = {https://arxiv.org/abs/2603.20077},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.RO},
+  eprint = {2603.20077},
+  openaccesspdf = {https://arxiv.org/pdf/2603.20077.pdf},
+  howpublished = {arXiv preprint arXiv:2603.20077},
+  rosmed_library = {ROS_IGTL},
   date_added = {2026-08-31},
   abstract = {Three-dimensional (3D) Ultrasound (US) can facilitate diagnosis, treatment planning, and image-guided therapy. However, current studies rarely provide a comprehensive evaluation of volumetric accuracy and reproducibility, highlighting the need for robust Quality Assurance (QA) frameworks, particularly for tracked 3D US reconstruction using freehand or robotic acquisition. This study presents a QA framework for 3D US reconstruction and a flexible open source platform for tracked US research. A custom phantom containing geometric inclusions with varying symmetry properties enables straightforward evaluation of optical, electromagnetic, and robotic kinematic tracking for 3D US at different scanning speeds and insonation angles. A standardised pipeline performs real-time segmentation and 3D reconstruction of geometric targets (DSC = 0.97, FPS = 46) without GPU acceleration, followed by automated registration and comparison with ground-truth geometries. Applying this framework showed that our robotic 3D US achieves state-of-the-art reconstruction performance (DSC-3D = 0.94 +- 0.01, HD95 = 1.17 +- 0.12), approaching the spatial resolution limit imposed by the transducer. This work establishes a flexible experimental platform and a reproducible validation methodology for 3D US reconstruction. The proposed framework enables robust cross-platform comparisons and improved reporting practices, supporting the safe and effective clinical translation of 3D ultrasound in diagnostic and image-guided therapy applications.},
 }
@@ -22,7 +38,7 @@
   address = {Kingston, Ontario, Canada},
   url = {https://hdl.handle.net/1974/36963},
   openaccesspdf = {https://queensu.scholaris.ca/bitstreams/fc9a872e-69d8-4bb6-ad66-8af2d26b7aeb/download},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {This thesis presents SlicerROS2 and interactive motion planning frameworks bridging 3D Slicer and ROS 2 for image-guided robotic surgery and interventions.},
 }
@@ -38,7 +54,7 @@
   eprint = {2609.16186},
   openaccesspdf = {https://arxiv.org/pdf/2609.16186.pdf},
   howpublished = {arXiv preprint arXiv:2609.16186},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Autonomous soft-tissue cancer surgery has been limited to interventions on organ surfaces, because current systems cannot perceive and adapt to anatomy once it deforms or is cut. We introduce the first vision-guided autonomous system capable of performing complete tumor resections for partial nephrectomy. Our system integrates conditional occupancy networks, trained entirely in a physics-based simulation, that infer full 3-D anatomy (tumor, margin tissue, and kidney) from single-view partial point clouds. These occupancy networks maintain intraoperative tracking even as tissue is cut and deformed, enabling adaptive planning and execution. The surgical platform combines a depth camera for capturing surface point clouds, dual robotic arms for electrosurgical cutting and vacuum-based tissue manipulation, and an autonomous control strategy for tumor resection. In patient-derived hydrogel phantoms under an open partial nephrectomy setting, the robot performed eight consecutive autonomous tumor resections comprising 77 electrosurgical cuts, with all cuts achieving negative surgical margins and 1.61 $\pm$ 0.48 mm mean absolute margin error. This work demonstrates, for the first time, a foundation for supervised autonomous closed-loop, imaging-driven, margin-negative tumor removal in phantoms.},
 }
@@ -54,7 +70,7 @@
   eprint = {2604.25661},
   openaccesspdf = {https://arxiv.org/pdf/2604.25661.pdf},
   howpublished = {arXiv preprint arXiv:2604.25661},
-  package = {slicer_ros2 and ros2_igtl},
+  rosmed_library = {SlicerROS2 and ROS2_IGTL},
   date_added = {2026-08-31},
   abstract = {Robot-assisted Transcranial Magnetic Stimulation (Robo-TMS) is an image-guided robotic intervention that enhances the accuracy and reproducibility of conventional Transcranial Magnetic Stimulation (TMS), a widely used non-invasive brain stimulation procedure in clinical treatment and neuroscience research. Despite its potential, the development of Robo-TMS remains challenging due to the need for multidisciplinary expertise spanning medical imaging, computer vision, and robotics. This paper presents SlicerRoboTMS, an open-source 3D Slicer extension that provides a unified interaction infrastructure for Robo-TMS research. By leveraging 3D Slicer's medical image computing and visualisation capabilities, the extension supports Magnetic Resonance Imaging (MRI)-based neuronavigation and interfaces with robotic systems through standardised communication protocols and configurable system descriptions. An example integration is presented to demonstrate how SlicerRoboTMS can be incorporated into a representative Robo-TMS workflow. Designed to support diverse hardware configurations and rapid prototyping, SlicerRoboTMS lowers the barrier to entry and facilitates reproducible and extensible research in Robo-TMS. The extension is available at https://github.com/OpenRoboTMS/SlicerRoboTMS.},
 }
@@ -72,7 +88,7 @@
   doi = {10.1080/24699322.2025.2604123},
   url = {http://dx.doi.org/10.1080/24699322.2025.2604123},
   openaccesspdf = {https://www.tandfonline.com/doi/pdf/10.1080/24699322.2025.2604123?needAccess=true},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Cancer resection surgery is unsuccessful if tumor tissue is left behind in the surgical cavity. Identifying the residual cancer requires additional imaging or postoperative histological analysis. Photoacoustic imaging can be used to image both the surface and depths of the resection cavity; however, its performance hinges on consistent probe placement and stable acoustic and optical coupling. As intra-cavity deployment of photoacoustic imaging is largely uncharted, several potential embodiments warrant rigorous investigation. We address this need with an open-source robotic testbed for intraoperative tumor-bed inspection using photoacoustic imaging. The platform integrates the da Vinci Research Kit, depth imaging, and electromagnetic tracking to automate cavity scanning and maintain repeatable probe trajectories. Using tissue-mimicking phantoms, we (i) demonstrate a novel imaging embodiment for photoacoustic tumor-bed inspection and (ii) show how this testbed can be used to investigate and optimize tumor bed inspection strategies and configurations. This study establishes the feasibility of detecting and mapping residual cancer within a simulated surgical cavity. The primary contribution is the testbed itself, designed for integration with existing surgical navigation workflows and rapid prototyping. This testbed serves as an essential foundation for systematic evaluation of photoacoustic, robot-assisted strategies for improving intraoperative margin assessment.},
 }
@@ -90,7 +106,7 @@
   doi = {10.1080/24699322.2025.2604123},
   url = {http://dx.doi.org/10.1080/24699322.2025.2604123},
   openaccesspdf = {https://www.tandfonline.com/doi/pdf/10.1080/24699322.2025.2604123?needAccess=true},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Cancer resection surgery is unsuccessful if tumor tissue is left behind in the surgical cavity. Identifying the residual cancer requires additional imaging or postoperative histological analysis. Photoacoustic imaging can be used to image both the surface and depths of the resection cavity; however, its performance hinges on consistent probe placement and stable acoustic and optical coupling. As intra-cavity deployment of photoacoustic imaging is largely uncharted, several potential embodiments warrant rigorous investigation. We address this need with an open-source robotic testbed for intraoperative tumor-bed inspection using photoacoustic imaging. The platform integrates the da Vinci Research Kit, depth imaging, and electromagnetic tracking to automate cavity scanning and maintain repeatable probe trajectories. Using tissue-mimicking phantoms, we (i) demonstrate a novel imaging embodiment for photoacoustic tumor-bed inspection and (ii) show how this testbed can be used to investigate and optimize tumor bed inspection strategies and configurations. This study establishes the feasibility of detecting and mapping residual cancer within a simulated surgical cavity. The primary contribution is the testbed itself, designed for integration with existing surgical navigation workflows and rapid prototyping. This testbed serves as an essential foundation for systematic evaluation of photoacoustic, robot-assisted strategies for improving intraoperative margin assessment.},
 }
@@ -106,7 +122,7 @@
   editor = {Rettmann, Maryam E. and Siewerdsen, Jeffrey H.},
   doi = {10.1117/12.3047507},
   url = {http://dx.doi.org/10.1117/12.3047507},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {PURPOSE: Cancer can recur after tumor resection surgery if tumor tissue is missed and left behind. We hypothesize that intraoperative robotic imaging could be used to inspect the surgical cavity and localize residual cancer tissue. This technique has the potential to improve the success rate of tumor resection surgery. Towards this, we propose and evaluate a benchtop testbed for robotic manipulation of an optical imaging probe. We use low-cost hardware and open-source software to construct the testbed and describe the implementation so that it can be easily adopted to support similar research. METHODS: We implemented a reusable, open-source module in 3D Slicer for reading position coordinates and motion planning with an inexpensive 6-axis robotic arm in Robot Operating System (ROS). For demonstration, a custom end-effector was used to fix an optical probe to the robot. The accuracy of the testbed was assessed using a 3D-printed phantom with 16 target points. We used the testbed to automatically scan the phantom and measured the positioning accuracy of the robot. RESULTS: The testbed had an average positional accuracy of 3.59 ± 1.4 mm and successfully navigated to the majority of target points. CONCLUSIONS: While the current positional accuracy requires further refinement for clinical applications, this open-source benchtop system provides a foundational step towards developing benchtop image-guided tumor inspection systems using low-cost robotics. Future work will explore the application of this test bed within breast conserving surgery along with increasing the positional accuracy of the system.},
 }
@@ -122,7 +138,7 @@
   editor = {Rettmann, Maryam E. and Siewerdsen, Jeffrey H.},
   doi = {10.1117/12.3047143},
   url = {http://dx.doi.org/10.1117/12.3047143},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {INTRODUCTION: Roughly 40% of breast cancer patients are required to undergo corrective surgery after tumour resection via breast-conserving surgery (BCS). Sweeping of the cavity, resulting from the tumour resection, by spectroscopy and ultrasound imaging is emerging as a potential solution for identifying leftover cancer. However, the use of imaging modalities in the cavity is challenging as breast tissue is soft, malleable, and moves frequently. This paper presents and verifies an approach for tracking the relative motion of a resection cavity with a robotic arm. METHODS: We use electromagnetic tracking and a low cost 6-axis robotic arm to track a simulated resection cavity. We embed an electromagnetic sensor in a 3D printed retractor that is designed to hold the cavity open. An open-source module in 3D Slicer is then used to detect cavity motion from the retractor and command the robotic arm to follow the relative movement while incorporating motion planning to prevent collisions and unsafe actions. To assess this approach we move the retractor to 36 positions in the robotic arm workspace and measure the latency between when a command is published to the robotic arm and when it begins to move to this position. In addition, we attach a camera to the end-effector (EE) of the robotic arm to determine when the robotic arm has successfully tracked the cavity by checking if it is visible in the center of the camera frame. RESULTS: The latency was recorded to be 832.1 milliseconds on average with 132.6 standard deviation. We can also successfully track the motion of the cavity in almost every test position. CONCLUSIONS: These results suggest that tracking of the breast cavity using EM tracking and robotics is feasible. Future work focusing on the integration with spectroscopy and cavity servoing.},
 }
@@ -141,7 +157,7 @@
   doi = {10.1007/s11548-025-03342-z},
   url = {http://dx.doi.org/10.1007/s11548-025-03342-z},
   openaccesspdf = {https://arxiv.org/pdf/2510.01452},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
 }
 
@@ -155,7 +171,7 @@
   collection = {HSMR 2025},
   doi = {10.31256/hsmr25.26},
   url = {http://dx.doi.org/10.31256/hsmr25.26},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
 }
 
@@ -170,7 +186,7 @@
   eprint = {2503.17511},
   openaccesspdf = {https://arxiv.org/pdf/2503.17511.pdf},
   howpublished = {arXiv preprint arXiv:2503.17511},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
 }
 
@@ -188,7 +204,7 @@
   doi = {10.1109/tmrb.2024.3475827},
   url = {http://dx.doi.org/10.1109/tmrb.2024.3475827},
   openaccesspdf = {https://pmc.ncbi.nlm.nih.gov/articles/PMC13664639/pdf/nihms-2212678.pdf},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Image-guided robotic interventions represent a transformative frontier in surgery, blending advanced imaging and robotics for improved precision and outcomes. This paper addresses the critical need for integrating open-source platforms to enhance situational awareness in image-guided robotic research. We present an open-source toolkit, named ENTRI, that seamlessly combines a physics-based constraint formulation framework, AMBF, with a state-of-the-art imaging platform application, 3D Slicer. ENTRI facilitates the creation of highly customizable interactive digital twins, that incorporate processing and visualization of medical imaging, robot kinematics, and scene dynamics for real-time robot control. Through a feasibility study, we showcase real-time synchronization of a physical robotic interventional environment in both 3D Slicer and AMBF, highlighting low-latency updates and improved visualization. The source code and supplementary materials for this study are available at https://github.com/LCSR-CIIS/ENTRI.},
 }
@@ -207,7 +223,7 @@
   doi = {10.1109/tmrb.2024.3464683},
   url = {http://dx.doi.org/10.1109/tmrb.2024.3464683},
   openaccesspdf = {https://arxiv.org/pdf/2509.19076},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Image-guided robotic interventions involve the use of medical imaging in tandem with robotics. SlicerROS2 is a software module that combines 3D Slicer and robot operating system (ROS) in pursuit of a standard integration approach for medical robotics research. The first release of SlicerROS2 demonstrated the feasibility of using the C++ API from 3D Slicer and ROS to load and visualize robots in real time. Since this initial release, we've rewritten and redesigned the module to offer greater modularity, access to low-level features, access to 3D Slicer's Python API, and better data transfer protocols. In this paper, we introduce this new design as well as four applications that leverage the core functionalities of SlicerROS2 in realistic image-guided robotics scenarios.},
 }
@@ -223,7 +239,7 @@
   doi = {10.1109/ismr63436.2024.10585683},
   url = {http://dx.doi.org/10.1109/ismr63436.2024.10585683},
   openaccesspdf = {http://hdl.handle.net/20.500.11850/683143},
-  package = {ros2_igtl},
+  rosmed_library = {ROS2_IGTL},
   date_added = {2026-08-31},
   abstract = {The advent of surgical robots has significantly enhanced the precision and efficiency of surgical procedures, paving the way for remote operation and telesurgery. Despite its potential for delivering expert care to remote regions and aiding in surgical training, the widespread adoption of telesurgery has been hindered by various challenges. To overcome these barriers and make telesurgery more accessible to the robotics community, we introduce ROSurgical. This open-source, ROS-based framework is engineered for the streamlined control of medical robots in telesurgery environments. ROSurgical enables plug-and-play operations of ROS-based robotic systems in telesurgical settings, while ensuring high security, reduced complexity, and reliable latency measurements. We demonstrate the framework's versatility in three scenarios: catheter ab-lation, ophthalmic microsurgery, and uterus endoscopy, with the catheter ablation experiments conducted internationally between Zurich and Madrid. Our experiments highlight RO-Surgical's seamless integration and its potential to lower the barriers to telesurgery adoption.},
 }
@@ -239,7 +255,7 @@
   eprint = {2401.11715},
   openaccesspdf = {https://arxiv.org/pdf/2401.11715.pdf},
   howpublished = {arXiv preprint arXiv:2401.11715},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Image-guided robotic interventions represent a transformative frontier in surgery, blending advanced imaging and robotics for improved precision and outcomes. This paper addresses the critical need for integrating open-source platforms to enhance situational awareness in image-guided robotic research. We present an open-source toolset that seamlessly combines a physics-based constraint formulation framework, AMBF, with a state-of-the-art imaging platform application, 3D Slicer. Our toolset facilitates the creation of highly customizable interactive digital twins, that incorporates processing and visualization of medical imaging, robot kinematics, and scene dynamics for real-time robot control. Through a feasibility study, we showcase real-time synchronization of a physical robotic interventional environment in both 3D Slicer and AMBF, highlighting low-latency updates and improved visualization.},
 }
@@ -257,7 +273,7 @@
   doi = {10.31256/hsmr2023.64},
   url = {http://dx.doi.org/10.31256/hsmr2023.64},
   openaccesspdf = {https://doi.org/10.31256/hsmr2023.64},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Breast conserving surgery (BCS) is a surgical intervention for breast cancer where the surgeon resects the primary tumor and preserves the surrounding healthy tissue. These procedures have a high failure rate because it is often difficult to localize breast tumor boundaries intraoperatively. Emerging surgical robotic technology demonstrates promise for addressing such challenges. Hand-over-hand control is a design concept that involves cooperative handling of a surgical instrument by the surgeon and a robot. These systems can be used to reduce hand-tremor, improve dexterity, and implement virtual guidance [1]. One way to do this is with a virtual fixture (VF) which is a computer-generated constraint that is communicated from robotic devices to human operators via force and position signals [2]. A forbidden region VF can be used to enforce a safety region or “no-go zone” that can prevent the operator from damaging delicate or critical anatomy. In this paper, we use an Omni Bundle robot (formerly known as a Phantom Omni) to introduce haptic feedback in BCS. In doing so, we demonstrate a new and simplified approach to implementing a VF using open-source software tools such as 3D Slicer and robot operating system (ROS). We also make use of an existing surgical navigation platform that is used for BCS and describe how to deploy this system to encourage adaptation to other clinical applications.},
 }
@@ -275,7 +291,7 @@
   doi = {10.31256/hsmr2023.45},
   url = {http://dx.doi.org/10.31256/hsmr2023.45},
   openaccesspdf = {https://doi.org/10.31256/hsmr2023.45},
-  package = {slicer_ros2},
+  rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Background Medical robotics, particularly image- guided robotic systems, have revolutionized the surgical field by improving precision and accuracy. 3D Slicer(1), an open-source platform, has become a crucial tool in this field as it allows for visualization, processing, and registration of 2D and 3D medical imaging data, making it an essential component in current research in robotic intervention(2) (3). However, there is a missing compo- nent in 3D Slicer - a native physics engine for simulating the interaction of a robot with the anatomy. AMBF(4), an open-source software, was designed to address this issue by simulating the kinematics, dynamics, and in- teraction of complex surgical robots. By integrating 3D Slicer and AMBF using Robot Operating System (ROS), we can empower researchers to utilize both the extensive capabilities of 3D Slicer for visualization, processing, and registration of medical imaging data, and the physics- based constraint of AMBF for simulating the interac- tion of a robot with the anatomy. By combining these two platforms, researchers will have a comprehensive tool to study and develop projects in medical robotics, ulti- mately contributing to the advancement of the field.},
 }
@@ -294,9 +310,26 @@
   doi = {10.1088/1361-6560/accefa},
   url = {http://dx.doi.org/10.1088/1361-6560/accefa},
   openaccesspdf = {https://iopscience.iop.org/article/10.1088/1361-6560/accefa/pdf},
-  package = {ros2_igtl},
+  rosmed_library = {ROS2_IGTL},
   date_added = {2026-08-31},
   abstract = {Abstract Objective. Clinical outcomes of transperineal prostate interventions, such as biopsy, thermal ablations, and brachytherapy, depend on accurate needle placement for effectiveness. However, the accurate placement of a long needle, typically 150–200 mm in length, is challenging due to needle deviation induced by needle-tissue interaction. While several approaches for needle trajectory correction have been studied, many of them do not translate well to practical applications due to the use of specialized needles not yet approved for clinical use, or to relying on needle-tissue models that need to be tailored to individual patients. Approach. In this paper, we present a robot-assisted collaborative needle insertion method that only requires an actuated passive needle guide and a conventional needle. The method is designed to assist a physician inserting a needle manually through a needle guide. If the needle is deviated from the intended path, actuators shifts the needle radially in order to steer the needle trajectory and compensate for needle deviation adaptively. The needle guide is controlled by a new data-driven algorithm which does not require a priori information about needle or tissue properties. The method was evaluated in experiments with both in vitro and ex vivo phantoms. Main results. The experiments in ex vivo tissue reported a mean final placement error of 0.36 mm with a reduction of 96.25% of placement error when compared to insertions without the use of assistive correction. Significance. Presented results show that the proposed closed-loop formulation can be successfully used to correct needle deflection during collaborative manual insertion with potential to be easily translated into clinical application.},
+}
+
+@article{Moreira_2023,
+  author = {Moreira, Pedro and Grimble, John and Bernardes, Mariana C. and Iftimia, Nicusor and Levesque, Vincent M. and Foley, Lori and Tuncali, Kemal and Tokuda, Junichi and Park, Jesung},
+  title = {Motorized Template for MRI-Guided Focal Cryoablation of Prostate Cancer},
+  journal = {IEEE Transactions on Medical Robotics and Bionics},
+  year = {2023},
+  volume = {5},
+  number = {2},
+  pages = {335–342},
+  month = {may},
+  publisher = {Institute of Electrical and Electronics Engineers (IEEE)},
+  issn = {2576-3202},
+  doi = {10.1109/tmrb.2023.3272025},
+  url = {http://dx.doi.org/10.1109/tmrb.2023.3272025},
+  openaccesspdf = {https://pmc.ncbi.nlm.nih.gov/articles/PMC10259684/pdf/nihms-1899194.pdf},
+  abstract = {MR-guided focal cryoablation of prostate cancer has often been selected as a minimally-invasive treatment option. Placing multiple cryo-needles accurately to form an ablation volume that adequately covers the target volume is crucial for better oncological/functional outcomes. This paper presents an MRI-compatible system combining a motorized tilting grid template with insertion depth sensing capabilities, enabling the physician to precisely place the cryo-needles into the desired location. In vivo animal study in a swine model (3 animals) was performed to test the device performance including targeting accuracy and the procedure workflow. The study showed that the insertion depth feedback improved the 3D targeting accuracy when compared to the conventional insertion technique (7.4 mm vs. 11.2 mm, p=0.04). All three cases achieved full iceball coverage without repositioning the cryo-needles. The results demonstrate the advantages of the motorized tilting mechanism and real-time insertion depth feedback, as well as the feasibility of the proposed workflow for MRI-guided focal cryoablation of prostate cancer.},
 }
 
 @article{Siegfarth2023,
@@ -313,7 +346,7 @@
   doi = {10.1007/s11548-023-02882-6},
   url = {http://dx.doi.org/10.1007/s11548-023-02882-6},
   openaccesspdf = {https://link.springer.com/content/pdf/10.1007/s11548-023-02882-6.pdf},
-  package = {ros2_igtl},
+  rosmed_library = {ROS2_IGTL},
   date_added = {2026-08-31},
   abstract = {PURPOSE: A robotic assistive device is developed for needle-based percutaneous interventions. The aim is a hybrid system using both manual and actuated robotic operation in order to obtain a device that has a large workspace but can still fit in the gantry opening of a CT scanner. This will enable physicians to perform precise and time-efficient CT-guided percutaneous interventions. The concept of the mechanics and software of the device is presented in this work. METHODS: The approach is a semi-automated robotic assistive device, which combines manual and robotic positioning to reduce the number and size of necessary motors. The system consists of a manual rough positioning unit, a robotic fine positioning unit and an optical needle tracking unit. The resulting system has eight degrees of freedom, of which four are manual, which comprise encoders to monitor the position of each axis. The remaining four axes are actuated axes for fine positioning of the needle. Cameras are attached to the mechanical structure for 3D tracking of the needle pose. The software is based on open-source software, mainly ROS2 as robotic middleware, Moveit2 for trajectory calculation and 3D Slicer for needle path planning. RESULTS: The communication between the components was successfully tested with a clinical CT scanner. In a first experiment, four needle insertions were planned and the deviation of the actual needle path from the planned path was measured. The mean deviation from the needle path to the target point was 21.9 mm, which is mainly caused both by translational deviation (15.4 mm) and angular deviation (6.8°) of the needle holder. The optical tracking system was able to detect the needle position with a mean deviation of 3.9 mm. CONCLUSION: The first validation of the system was successful which proves that the proposed concept for both the hardware and software is feasible. In a next step, an automatic position correction based on the optical tracking system will be integrated, which is expected to significantly improve the system accuracy.},
 }
@@ -332,7 +365,7 @@
   doi = {10.3390/s22145336},
   url = {http://dx.doi.org/10.3390/s22145336},
   openaccesspdf = {https://www.mdpi.com/1424-8220/22/14/5336/pdf?version=1658140056},
-  package = {slicer_ros2 and ros2_igtl},
+  rosmed_library = {SlicerROS2 and ROS2_IGTL},
   date_added = {2026-08-31},
   abstract = {Developing image-guided robotic systems requires access to flexible, open-source software. For image guidance, the open-source medical imaging platform 3D Slicer is one of the most adopted tools that can be used for research and prototyping. Similarly, for robotics, the open-source middleware suite robot operating system (ROS) is the standard development framework. In the past, there have been several "ad hoc" attempts made to bridge both tools; however, they are all reliant on middleware and custom interfaces. Additionally, none of these attempts have been successful in bridging access to the full suite of tools provided by ROS or 3D Slicer. Therefore, in this paper, we present the SlicerROS2 module, which was designed for the direct use of ROS2 packages and libraries within 3D Slicer. The module was developed to enable real-time visualization of robots, accommodate different robot configurations, and facilitate data transfer in both directions (between ROS and Slicer). We demonstrate the system on multiple robots with different configurations, evaluate the system performance and discuss an image-guided robotic intervention that can be prototyped with this module. This module can serve as a starting point for clinical system development that reduces the need for custom interfaces and time-intensive platform setup.},
 }
@@ -351,6 +384,6 @@
   doi = {10.1007/s11548-017-1618-1},
   url = {http://dx.doi.org/10.1007/s11548-017-1618-1},
   openaccesspdf = {https://www.ncbi.nlm.nih.gov/pmc/articles/5543207},
-  package = {ros2_igtl},
+  rosmed_library = {ROS_IGTL},
   date_added = {2026-08-31},
 }

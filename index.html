@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SlicerROS2 & ROS2-IGTL Community Publications</title>
+    <title>Slicer & ROS Community Publications</title>
     <meta name="description"
-        content="Explore curated research publications, theses, and technical papers integrating 3D Slicer with ROS 2, featuring SlicerROS2 and ros2_igtl_bridge.">
+        content="Explore curated research publications, theses, and technical papers integrating 3D Slicer with ROS and ROS 2, featuring SlicerROS2, ROS2_IGTL, and ROS_IGTL.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 
     <script>
@@ -22,8 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
 
     <!-- Application scripts -->
-    <script src="config.js?v=1"></script>
-    <link rel="stylesheet" href="styles.css?v=1">
+    <script src="config.js?v=2"></script>
+    <link rel="stylesheet" href="styles.css?v=2">
 </head>
 
 <body>
@@ -32,14 +32,16 @@
             <div class="container">
                 <div class="header-top">
                     <div class="header-brand">
-                        <span class="logo-badge">ROS 2</span>
+                        <span class="logo-badge">ROS 2 / ROS</span>
                         <div>
-                            <h1>SlicerROS2 Community Publications</h1>
+                            <h1>Slicer & ROS Community Publications</h1>
                             <p class="subtitle">
-                                Research publications integrating <strong>3D Slicer</strong> with <strong>ROS 2</strong>
-                                (including SlicerROS2 and ros2_igtl_bridge) •
+                                Research publications integrating <strong>3D Slicer</strong> with <strong>ROS & ROS 2</strong>
+                                (SlicerROS2, ROS2_IGTL, and ROS_IGTL) •
                                 <a href="https://github.com/rosmed/slicer_ros2_module" target="_blank"
-                                    rel="noopener noreferrer">GitHub Module</a>
+                                    rel="noopener noreferrer">GitHub SlicerROS2</a> •
+                                <a href="https://github.com/openigtlink/ros2_igtl_bridge" target="_blank"
+                                    rel="noopener noreferrer">GitHub ROS2-IGTL</a>
                             </p>
                         </div>
                     </div>
@@ -73,11 +75,12 @@
                 </div>
 
                 <div class="filters-row">
-                    <!-- Package Filter -->
-                    <select v-model="selectedPackage" class="filter-select" title="Filter by Software Package">
-                        <option value="">All Packages</option>
-                        <option value="slicer_ros2">SlicerROS2</option>
-                        <option value="ros2_igtl">ros2_igtl_bridge</option>
+                    <!-- Library Filter (rosmed_library) -->
+                    <select v-model="selectedLibrary" class="filter-select" title="Filter by ROS / Slicer Library">
+                        <option value="">All Libraries</option>
+                        <option value="SlicerROS2">SlicerROS2</option>
+                        <option value="ROS2_IGTL">ROS2_IGTL (ros2_igtl_bridge)</option>
+                        <option value="ROS_IGTL">ROS_IGTL (ROS-IGTL-Bridge)</option>
                     </select>
 
                     <!-- Type Filter -->
@@ -133,11 +136,15 @@
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">{{ countSlicerRos2 }}</span>
-                    <span class="stat-label">SlicerROS2 Works</span>
+                    <span class="stat-label">SlicerROS2</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">{{ countRos2Igtl }}</span>
-                    <span class="stat-label">ROS2-IGTL Works</span>
+                    <span class="stat-label">ROS2_IGTL</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countRosIgtl }}</span>
+                    <span class="stat-label">ROS_IGTL</span>
                 </div>
             </div>
 
@@ -152,9 +159,9 @@
                     <div class="pub-header">
                         <h2 class="pub-title">{{ pub.title }}</h2>
                         <div class="pub-badges">
-                            <span v-for="pkg in parsePackages(pub.package)" :key="pkg"
-                                :class="['badge', pkg === 'slicer_ros2' ? 'badge-slicer' : 'badge-igtl']">
-                                {{ packageName(pkg) }}
+                            <span v-for="lib in parseLibraries(pub.rosmed_library)" :key="lib"
+                                :class="['badge', libraryBadgeClass(lib)]">
+                                {{ libraryName(lib) }}
                             </span>
                             <span class="badge badge-type">{{ formatType(pub.type) }}</span>
                         </div>
@@ -292,16 +299,16 @@
         <footer>
             <div class="container">
                 <p>
-                    <strong>SlicerROS2 Community Publications</strong> is an open-source bibliography curated by the medical robotics community.
+                    <strong>Slicer & ROS Community Publications</strong> is an open-source bibliography curated by the medical robotics community.
                 </p>
                 <p style="margin-top: 0.4rem;">
-                    To add your publication, fork the repository, update <code>publications.bib</code>, and submit a pull request.
+                    To add your publication, fork the repository, update <code>publications.bib</code> (using the <code>rosmed_library</code> tag), and submit a pull request.
                 </p>
             </div>
         </footer>
     </div>
 
-    <script src="app.js?v=1"></script>
+    <script src="app.js?v=2"></script>
 </body>
 
 </html>

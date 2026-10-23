@@ -1,14 +1,19 @@
 {
-  "packages": [
+  "rosmed_libraries": [
     {
-      "id": "slicer_ros2",
+      "id": "SlicerROS2",
       "name": "SlicerROS2",
       "description": "3D Slicer module and extension providing native ROS 2 communication, tf2 spatial transform synchronization, and interactive robot visualization."
     },
     {
-      "id": "ros2_igtl",
-      "name": "ros2_igtl_bridge",
-      "description": "ROS 2 OpenIGTLink bridge node facilitating network communication between ROS 2 and medical image computing or navigation platforms."
+      "id": "ROS2_IGTL",
+      "name": "ROS2_IGTL",
+      "description": "ROS 2 OpenIGTLink bridge node (ros2_igtl_bridge) facilitating network communication between ROS 2 and medical image computing or navigation platforms."
+    },
+    {
+      "id": "ROS_IGTL",
+      "name": "ROS_IGTL",
+      "description": "The original ROS 1 OpenIGTLink bridge (ROS-IGTL-Bridge) providing network interfacing for image-guided therapy in the ROS 1 ecosystem."
     }
   ]
 }
