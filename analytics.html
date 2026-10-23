@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - SlicerROS2 Community Publications</title>
+    <meta name="description"
+        content="Publication trends, venue distributions, and package breakdowns for SlicerROS2 and ros2_igtl_bridge research.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+    <script>
+        (function () {
+            const stored = localStorage.getItem('slicer_ros2_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+
+    <!-- Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bibtex-parse-js@0.0.24/bibtexParse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <script src="config.js?v=1"></script>
+    <link rel="stylesheet" href="styles.css?v=1">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-brand">
+                        <span class="logo-badge">ROS 2</span>
+                        <div>
+                            <h1>Community Analytics & Trends</h1>
+                            <p class="subtitle">
+                                Publication trends and package breakdowns •
+                                <a href="https://github.com/rosmed/slicer_ros2_module" target="_blank"
+                                    rel="noopener noreferrer">GitHub Module</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="header-nav">
+                        <a href="index.html" class="nav-link">Publications</a>
+                        <a href="analytics.html" class="nav-link active">Analytics</a>
+                        <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+                            <span class="theme-toggle-icon">🌙</span>
+                            <span class="theme-toggle-text">Dark</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Summary Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">{{ totalPublications }}</span>
+                    <span class="stat-label">Total Publications</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ totalAuthors }}</span>
+                    <span class="stat-label">Total Authors</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ yearRangeText }}</span>
+                    <span class="stat-label">Publication Years</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countSlicer }}</span>
+                    <span class="stat-label">SlicerROS2 Papers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countIgtl }}</span>
+                    <span class="stat-label">ROS2-IGTL Papers</span>
+                </div>
+            </div>
+
+            <!-- Charts Grid -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>📅 Publications by Year</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartYear"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>📦 Package Breakdown</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartPackage"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>📑 Publication Types</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartType"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>🏛 Top Publication Venues</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chartVenue"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>
+                    <a href="index.html">← Back to Publications List</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="analytics.js?v=1"></script>
+</body>
+
+</html>

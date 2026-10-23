@@ -1,0 +1,14 @@
+{
+  "packages": [
+    {
+      "id": "slicer_ros2",
+      "name": "SlicerROS2",
+      "description": "3D Slicer module and extension providing native ROS 2 communication, tf2 spatial transform synchronization, and interactive robot visualization."
+    },
+    {
+      "id": "ros2_igtl",
+      "name": "ros2_igtl_bridge",
+      "description": "ROS 2 OpenIGTLink bridge node facilitating network communication between ROS 2 and medical image computing or navigation platforms."
+    }
+  ]
+}

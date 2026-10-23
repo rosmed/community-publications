@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SlicerROS2 & ROS2-IGTL Community Publications</title>
+    <meta name="description"
+        content="Explore curated research publications, theses, and technical papers integrating 3D Slicer with ROS 2, featuring SlicerROS2 and ros2_igtl_bridge.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+
+    <script>
+        (function () {
+            const stored = localStorage.getItem('slicer_ros2_theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+        })();
+    </script>
+
+    <!-- Dependencies: Vue 3 and bibtexParse -->
+    <script src="https://cdn.jsdelivr.net/npm/bibtex-parse-js@0.0.24/bibtexParse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
+
+    <!-- Application scripts -->
+    <script src="config.js?v=1"></script>
+    <link rel="stylesheet" href="styles.css?v=1">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <div class="container">
+                <div class="header-top">
+                    <div class="header-brand">
+                        <span class="logo-badge">ROS 2</span>
+                        <div>
+                            <h1>SlicerROS2 Community Publications</h1>
+                            <p class="subtitle">
+                                Research publications integrating <strong>3D Slicer</strong> with <strong>ROS 2</strong>
+                                (including SlicerROS2 and ros2_igtl_bridge) •
+                                <a href="https://github.com/rosmed/slicer_ros2_module" target="_blank"
+                                    rel="noopener noreferrer">GitHub Module</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="header-nav">
+                        <a href="index.html" class="nav-link active">Publications</a>
+                        <a href="analytics.html" class="nav-link">Analytics</a>
+                        <button class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle theme">
+                            <span class="theme-toggle-icon">🌙</span>
+                            <span class="theme-toggle-text">Dark</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Search & Filter Controls -->
+            <div class="controls-card">
+                <div class="search-row">
+                    <div class="search-input-wrapper">
+                        <input v-model="searchQuery" type="text"
+                            placeholder="Search by title, author, venue, keyword, or citation key..."
+                            class="search-input">
+                        <button v-if="searchQuery" @click="searchQuery = ''" class="search-clear-btn"
+                            title="Clear search">✕</button>
+                    </div>
+                    <label class="search-abstract-label" title="Search inside abstracts">
+                        <input type="checkbox" v-model="searchInAbstract">
+                        <span>Search in abstracts</span>
+                    </label>
+                </div>
+
+                <div class="filters-row">
+                    <!-- Package Filter -->
+                    <select v-model="selectedPackage" class="filter-select" title="Filter by Software Package">
+                        <option value="">All Packages</option>
+                        <option value="slicer_ros2">SlicerROS2</option>
+                        <option value="ros2_igtl">ros2_igtl_bridge</option>
+                    </select>
+
+                    <!-- Type Filter -->
+                    <select v-model="selectedType" class="filter-select" title="Publication Type">
+                        <option value="">All Types</option>
+                        <option value="article">Journal Articles</option>
+                        <option value="inproceedings">Conference Papers</option>
+                        <option value="phdthesis">Dissertations / Theses</option>
+                        <option value="misc">Preprints & Technical Reports</option>
+                    </select>
+
+                    <!-- Years -->
+                    <select v-model="startYear" class="filter-select" title="Start Year">
+                        <option v-for="year in availableStartYears" :key="year" :value="year">
+                            From {{ year }}
+                        </option>
+                    </select>
+
+                    <select v-model="endYear" class="filter-select" title="End Year">
+                        <option v-for="year in availableEndYears" :key="year" :value="year">
+                            To {{ year }}
+                        </option>
+                    </select>
+
+                    <!-- Sort -->
+                    <select v-model="sortBy" class="filter-select" title="Sort Order">
+                        <option value="year_desc">📅 Published (Newest First)</option>
+                        <option value="year_asc">📅 Published (Oldest First)</option>
+                        <option value="date_added_desc">✨ Recently Added to Database</option>
+                        <option value="title_asc">🔤 Title (A–Z)</option>
+                        <option value="author_asc">👤 Author (A–Z)</option>
+                    </select>
+
+                    <button @click="resetFilters" class="action-btn btn-secondary">Reset Filters</button>
+                    <button @click="downloadBibtex" class="action-btn btn-primary" title="Export matching entries as BibTeX">
+                        ⬇ BibTeX ({{ filteredPublications.length }})
+                    </button>
+                    <button @click="downloadAllRis" class="action-btn btn-secondary" title="Export matching entries for Zotero / Mendeley">
+                        ⬇ RIS ({{ filteredPublications.length }})
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">{{ filteredPublications.length }}</span>
+                    <span class="stat-label">Matching Papers</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ totalAuthors }}</span>
+                    <span class="stat-label">Unique Authors</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countSlicerRos2 }}</span>
+                    <span class="stat-label">SlicerROS2 Works</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">{{ countRos2Igtl }}</span>
+                    <span class="stat-label">ROS2-IGTL Works</span>
+                </div>
+            </div>
+
+            <!-- Publications Cards -->
+            <div class="publications-list">
+                <div v-if="filteredPublications.length === 0" class="controls-card" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">
+                    No publications match your filter criteria. Try clicking <strong>Reset Filters</strong>.
+                </div>
+
+                <article v-for="pub in paginatedPublications" :key="pub.id" :id="pub.id"
+                    :class="['publication-card', { 'pub-highlight': pub.isHighlighted }]">
+                    <div class="pub-header">
+                        <h2 class="pub-title">{{ pub.title }}</h2>
+                        <div class="pub-badges">
+                            <span v-for="pkg in parsePackages(pub.package)" :key="pkg"
+                                :class="['badge', pkg === 'slicer_ros2' ? 'badge-slicer' : 'badge-igtl']">
+                                {{ packageName(pkg) }}
+                            </span>
+                            <span class="badge badge-type">{{ formatType(pub.type) }}</span>
+                        </div>
+                    </div>
+
+                    <p class="pub-authors" v-if="pub.author">
+                        {{ formatAuthors(pub.author) }}
+                    </p>
+
+                    <p class="pub-venue">
+                        <strong v-if="pub.journal || pub.booktitle || pub.school">
+                            {{ pub.journal || pub.booktitle || pub.school }}
+                        </strong>
+                        <span v-if="pub.volume"> • Vol. {{ pub.volume }}</span>
+                        <span v-if="pub.number">, No. {{ pub.number }}</span>
+                        <span v-if="pub.pages">, pp. {{ pub.pages }}</span>
+                        <span v-if="pub.year"> • {{ pub.year }}</span>
+                        <span v-if="pub.date_added" style="opacity: 0.75;"> • Added {{ pub.date_added }}</span>
+                    </p>
+
+                    <!-- Action buttons -->
+                    <div class="pub-actions">
+                        <a v-if="pub.doi" :href="'https://doi.org/' + pub.doi" target="_blank" rel="noopener noreferrer"
+                            class="pub-btn btn-doi">
+                            🔗 DOI
+                        </a>
+                        <a v-if="pub.openaccesspdf" :href="pub.openaccesspdf" target="_blank" rel="noopener noreferrer"
+                            class="pub-btn btn-pdf">
+                            🔓 Open Access PDF
+                        </a>
+                        <a v-if="pub.arxiv" :href="pub.arxiv.startsWith('http') ? pub.arxiv : 'https://arxiv.org/abs/' + pub.arxiv"
+                            target="_blank" rel="noopener noreferrer" class="pub-btn btn-arxiv">
+                            📄 arXiv
+                        </a>
+                        <a v-if="pub.url && !pub.openaccesspdf && !pub.arxiv" :href="pub.url" target="_blank"
+                            rel="noopener noreferrer" class="pub-btn">
+                            🌐 Source URL
+                        </a>
+
+                        <button @click="sharePublication(pub)" class="pub-btn" :title="'Share link to ' + pub.title">
+                            {{ pub.copiedLink ? '✓ Copied Link' : '🔗 Share' }}
+                        </button>
+                        <button v-if="pub.abstract" @click="toggleAbstract(pub)" class="pub-btn"
+                            :class="{ active: pub.showAbstract }">
+                            {{ pub.showAbstract ? '✕ Close Abstract' : '📝 Abstract' }}
+                        </button>
+                        <button @click="toggleCite(pub)" class="pub-btn" :class="{ active: pub.showCite }">
+                            {{ pub.showCite ? '✕ Close Cite' : '💬 Cite' }}
+                        </button>
+                        <button @click="toggleBibtex(pub)" class="pub-btn" :class="{ active: pub.showBibtex }">
+                            {{ pub.showBibtex ? '✕ Close BibTeX' : '📋 BibTeX' }}
+                        </button>
+                        <button @click="toggleRis(pub)" class="pub-btn" :class="{ active: pub.showRis }">
+                            {{ pub.showRis ? '✕ Close RIS' : '📑 RIS' }}
+                        </button>
+                    </div>
+
+                    <!-- Abstract Drawer -->
+                    <div v-if="pub.showAbstract" class="drawer">
+                        <div class="drawer-header">
+                            <span>Abstract</span>
+                        </div>
+                        <p class="abstract-text">{{ pub.abstract }}</p>
+                    </div>
+
+                    <!-- Citation Drawer (APA / IEEE) -->
+                    <div v-if="pub.showCite" class="drawer">
+                        <div class="drawer-header">
+                            <span>Citation Formats</span>
+                        </div>
+                        <div class="citation-formats">
+                            <div class="citation-block">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="citation-label">APA 7th Edition</span>
+                                    <button @click="copyText(getApaText(pub), pub, 'copiedCite')" class="drawer-btn">
+                                        {{ pub.copiedCite ? '✓ Copied!' : 'Copy APA' }}
+                                    </button>
+                                </div>
+                                <div class="citation-text">{{ getApaText(pub) }}</div>
+                            </div>
+                            <div class="citation-block">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span class="citation-label">IEEE Style</span>
+                                    <button @click="copyText(getIeeeText(pub), pub, 'copiedCite')" class="drawer-btn">
+                                        {{ pub.copiedCite ? '✓ Copied!' : 'Copy IEEE' }}
+                                    </button>
+                                </div>
+                                <div class="citation-text">{{ getIeeeText(pub) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BibTeX Drawer -->
+                    <div v-if="pub.showBibtex" class="drawer">
+                        <div class="drawer-header">
+                            <span>BibTeX Entry</span>
+                            <div class="drawer-actions">
+                                <button @click="copyText(pub.bibtexText, pub, 'copiedBib')" class="drawer-btn">
+                                    {{ pub.copiedBib ? '✓ Copied!' : '📋 Copy' }}
+                                </button>
+                                <button @click="downloadSingleBibtex(pub)" class="drawer-btn">
+                                    ⬇ Download .bib
+                                </button>
+                            </div>
+                        </div>
+                        <pre>{{ pub.bibtexText }}</pre>
+                    </div>
+
+                    <!-- RIS Drawer -->
+                    <div v-if="pub.showRis" class="drawer">
+                        <div class="drawer-header">
+                            <span>RIS Format (Zotero / EndNote / Mendeley)</span>
+                            <div class="drawer-actions">
+                                <button @click="copyText(getRisText(pub), pub, 'copiedRis')" class="drawer-btn">
+                                    {{ pub.copiedRis ? '✓ Copied!' : '📋 Copy' }}
+                                </button>
+                                <button @click="downloadRis(pub)" class="drawer-btn">
+                                    ⬇ Download .ris
+                                </button>
+                            </div>
+                        </div>
+                        <pre>{{ getRisText(pub) }}</pre>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" v-if="totalPages > 1">
+                <button :disabled="currentPage === 1" @click="currentPage--" class="page-btn">← Previous</button>
+                <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button :disabled="currentPage === totalPages" @click="currentPage++" class="page-btn">Next →</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>
+                    <strong>SlicerROS2 Community Publications</strong> is an open-source bibliography curated by the medical robotics community.
+                </p>
+                <p style="margin-top: 0.4rem;">
+                    To add your publication, fork the repository, update <code>publications.bib</code>, and submit a pull request.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js?v=1"></script>
+</body>
+
+</html>
