@@ -216,11 +216,7 @@ createApp({
         formatAuthors(authorsStr) {
             if (!authorsStr) return '';
             const authors = CONFIG.parseAuthorList(authorsStr);
-            if (authors.length <= 4) {
-                return authors.map(a => `${a.first} ${a.last}`.trim()).join(', ');
-            }
-            const firstThree = authors.slice(0, 3).map(a => `${a.first} ${a.last}`.trim()).join(', ');
-            return `${firstThree}, et al. (${authors.length} authors)`;
+            return authors.map(a => `${a.first} ${a.last}`.trim()).filter(Boolean).join(', ');
         },
 
         formatType(type) {
