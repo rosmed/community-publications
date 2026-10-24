@@ -20,20 +20,23 @@ createApp({
             return `${min} – ${max}`;
         },
         countSlicer() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('SlicerROS2')).length;
+            return this.countLibrary('SlicerROS2');
         },
         countRos2Igtl() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS2_IGTL')).length;
+            return this.countLibrary('ROS2_IGTL');
         },
         countRosIgtl() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS_IGTL')).length;
+            return this.countLibrary('ROS_IGTL');
         }
     },
     methods: {
+        countLibrary(id) {
+            return this.publications.filter(p => CONFIG.parseLibraries(p.rosmed_library).includes(id)).length;
+        },
         async loadData() {
             try {
                 await CONFIG.init();
-                const res = await fetch('publications.bib');
+                const res = await fetch('publications.bib', { cache: 'no-cache' });
                 const text = await res.text();
                 const cleaned = CONFIG.cleanBibtexText(text);
                 const parsed = bibtexParse.toJSON(cleaned);
@@ -130,22 +133,31 @@ createApp({
             // 2. Breakdown by rosmed_library
             const ctxPkg = document.getElementById('chartPackage');
             if (ctxPkg) {
-                const isSlicer = lib => lib.toLowerCase().includes('slicerros2');
-                const isRos2Igtl = lib => lib.toLowerCase().includes('ros2') && lib.toLowerCase().includes('igtl');
-                const isRosIgtl = lib => lib.toLowerCase().includes('ros') && lib.toLowerCase().includes('igtl') && !lib.toLowerCase().includes('ros2');
+                const libsOf = p => CONFIG.parseLibraries(p.rosmed_library);
+                const only = id => this.publications.filter(p => { const l = libsOf(p); return l.length === 1 && l[0] === id; }).length;
 
-                const slicerOnly = this.publications.filter(p => isSlicer(p.rosmed_library) && !isRos2Igtl(p.rosmed_library) && !isRosIgtl(p.rosmed_library)).length;
-                const ros2IgtlOnly = this.publications.filter(p => isRos2Igtl(p.rosmed_library) && !isSlicer(p.rosmed_library) && !isRosIgtl(p.rosmed_library)).length;
-                const rosIgtlOnly = this.publications.filter(p => isRosIgtl(p.rosmed_library) && !isSlicer(p.rosmed_library) && !isRos2Igtl(p.rosmed_library)).length;
-                const multiLib = this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes(' and ')).length;
+                const slicerOnly = only('SlicerROS2');
+                const ros2IgtlOnly = only('ROS2_IGTL');
+                const rosIgtlOnly = only('ROS_IGTL');
+                const multiLib = this.publications.filter(p => libsOf(p).length > 1).length;
+                const untagged = this.publications.filter(p => libsOf(p).length === 0).length;
+
+                const labels = ['SlicerROS2 Only', 'ROS2-IGTL-Bridge Only', 'ROS-IGTL-Bridge Only', 'Multi-Library / Integrated'];
+                const data = [slicerOnly, ros2IgtlOnly, rosIgtlOnly, multiLib];
+                const bg = [colors.slicer, colors.ros2_igtl, colors.ros_igtl, colors.accent];
+                if (untagged) {
+                    labels.push('Untagged');
+                    data.push(untagged);
+                    bg.push('#94a3b8');
+                }
 
                 this.chartInstances.pkg = new Chart(ctxPkg, {
                     type: 'doughnut',
                     data: {
-                        labels: ['SlicerROS2 Only', 'ROS2-IGTL-Bridge Only', 'ROS-IGTL-Bridge Only', 'Multi-Library / Integrated'],
+                        labels,
                         datasets: [{
-                            data: [slicerOnly, ros2IgtlOnly, rosIgtlOnly, multiLib],
-                            backgroundColor: [colors.slicer, colors.ros2_igtl, colors.ros_igtl, colors.accent],
+                            data,
+                            backgroundColor: bg,
                             borderWidth: 0,
                         }]
                     },
@@ -168,6 +180,7 @@ createApp({
                 'article': 'Journal Article',
                 'inproceedings': 'Conference Paper',
                 'phdthesis': 'PhD Thesis',
+                'mastersthesis': "Master's Thesis",
                 'misc': 'Preprint / Report'
             };
             this.publications.forEach(p => {

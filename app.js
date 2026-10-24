@@ -34,17 +34,17 @@ createApp({
 
             // Library filter (rosmed_library)
             if (this.selectedLibrary) {
-                const target = this.selectedLibrary.replace(/[-_]/g, '').toLowerCase();
-                filtered = filtered.filter(pub => {
-                    if (!pub.rosmed_library) return false;
-                    const libs = pub.rosmed_library.split(' and ').map(p => p.trim().replace(/[-_]/g, '').toLowerCase());
-                    return libs.includes(target);
-                });
+                const target = CONFIG.normalizeLibrary(this.selectedLibrary);
+                filtered = filtered.filter(pub => CONFIG.parseLibraries(pub.rosmed_library).includes(target));
             }
 
-            // Type filter
+            // Type filter ('thesis' groups PhD and Master's theses)
             if (this.selectedType) {
-                filtered = filtered.filter(pub => pub.type.toLowerCase() === this.selectedType.toLowerCase());
+                const sel = this.selectedType.toLowerCase();
+                filtered = filtered.filter(pub => {
+                    const t = pub.type.toLowerCase();
+                    return sel === 'thesis' ? t.endsWith('thesis') : t === sel;
+                });
             }
 
             // Year filter
@@ -119,24 +119,23 @@ createApp({
             return CONFIG.calculateTotalAuthors(this.filteredPublications);
         },
         countSlicerRos2() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.toLowerCase().includes('slicerros2')).length;
+            return this.countLibrary('SlicerROS2');
         },
         countRos2Igtl() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.toLowerCase().includes('ros2') && p.rosmed_library.toLowerCase().includes('igtl')).length;
+            return this.countLibrary('ROS2_IGTL');
         },
         countRosIgtl() {
-            return this.publications.filter(p => {
-                if (!p.rosmed_library) return false;
-                const lower = p.rosmed_library.toLowerCase();
-                return lower.includes('ros') && lower.includes('igtl') && !lower.includes('ros2');
-            }).length;
+            return this.countLibrary('ROS_IGTL');
         }
     },
     methods: {
+        countLibrary(id) {
+            return this.publications.filter(p => CONFIG.parseLibraries(p.rosmed_library).includes(id)).length;
+        },
         async loadPublications() {
             try {
                 await CONFIG.init();
-                const response = await fetch('publications.bib');
+                const response = await fetch('publications.bib', { cache: 'no-cache' });
                 const bibtexText = await response.text();
 
                 const cleaned = CONFIG.cleanBibtexText(bibtexText);
@@ -160,6 +159,7 @@ createApp({
                             journal: CONFIG.convertLatexToUnicode(tags.journal || ''),
                             booktitle: CONFIG.convertLatexToUnicode(tags.booktitle || ''),
                             school: CONFIG.convertLatexToUnicode(tags.school || ''),
+                            publisher: CONFIG.convertLatexToUnicode(tags.publisher || ''),
                             volume: tags.volume || '',
                             number: tags.number || '',
                             pages: tags.pages || '',
@@ -177,7 +177,8 @@ createApp({
                             showCite: false,
                             copiedBib: false,
                             copiedRis: false,
-                            copiedCite: false,
+                            copiedApa: false,
+                            copiedIeee: false,
                             copiedLink: false,
                             isHighlighted: false
                         };
@@ -232,8 +233,7 @@ createApp({
         },
 
         parseLibraries(libStr) {
-            if (!libStr) return [];
-            return libStr.split(' and ').map(p => p.trim()).filter(Boolean);
+            return CONFIG.parseLibraries(libStr);
         },
 
         libraryName(id) {
@@ -241,11 +241,11 @@ createApp({
         },
 
         libraryBadgeClass(id) {
-            const clean = (id || '').replace(/[-_]/g, '').toLowerCase();
-            if (clean === 'slicerros2') return 'badge-slicer';
-            if (clean.includes('ros2') && clean.includes('igtl')) return 'badge-ros2-igtl';
-            if (clean.includes('ros') && clean.includes('igtl')) return 'badge-ros-igtl';
-            return 'badge-type';
+            return {
+                SlicerROS2: 'badge-slicer',
+                ROS2_IGTL: 'badge-ros2-igtl',
+                ROS_IGTL: 'badge-ros-igtl'
+            }[CONFIG.normalizeLibrary(id)] || 'badge-type';
         },
 
         toggleAbstract(pub) {

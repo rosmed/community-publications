@@ -6,7 +6,7 @@ const CONFIG = {
 
     async init() {
         try {
-            const response = await fetch('custom_tags.json');
+            const response = await fetch('custom_tags.json', { cache: 'no-cache' });
             const data = await response.json();
             if (data.rosmed_libraries) {
                 data.rosmed_libraries.forEach(lib => {
@@ -34,6 +34,26 @@ const CONFIG = {
             };
             return false;
         }
+    },
+
+    /**
+     * Map any accepted spelling of a library tag to its canonical id
+     * ('SlicerROS2', 'ROS2_IGTL', 'ROS_IGTL'); returns '' if unknown.
+     * Accepts e.g. ROS2_IGTL, ROS2-IGTL-Bridge, ros2_igtl_bridge.
+     */
+    normalizeLibrary(tag) {
+        const clean = (tag || '').replace(/[{}\s_-]/g, '').toLowerCase().replace(/bridge$/, '');
+        if (clean === 'slicerros2') return 'SlicerROS2';
+        if (clean === 'ros2igtl') return 'ROS2_IGTL';
+        if (clean === 'rosigtl') return 'ROS_IGTL';
+        return '';
+    },
+
+    /** Split a rosmed_library value ("A and B") into canonical ids, dropping unknowns. */
+    parseLibraries(value) {
+        if (!value) return [];
+        const ids = value.split(/\s+and\s+/i).map(t => this.normalizeLibrary(t)).filter(Boolean);
+        return [...new Set(ids)];
     },
 
     cleanBibtexText(text) {
@@ -87,11 +107,16 @@ const CONFIG = {
             "ss": 'ß'
         };
 
+        const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         let result = text;
         for (const [latex, unicode] of Object.entries(latexMap)) {
-            result = result.replace(new RegExp(`\\\\${latex}`, 'g'), unicode);
-            result = result.replace(new RegExp(`\\\\\\{${latex}\\}`, 'g'), unicode);
+            const accent = esc(latex[0]);
+            const rest = esc(latex.slice(1));
+            // \'a  and  \'{a}
+            result = result.replace(new RegExp(`\\\\${accent}\\{?${rest}\\}?`, 'g'), unicode);
         }
+        result = result.replace(/\$\\pm\$|\\pm\b/g, '±');
+        result = result.replace(/&amp;/g, '&');
         result = result.replace(/\\&/g, '&');
         result = result.replace(/\\%/g, '%');
         result = result.replace(/\\_/g, '_');
@@ -119,6 +144,10 @@ const CONFIG = {
     getInitials(name) {
         if (!name) return '';
         return name.split(/[\s\.-]+/).filter(Boolean).map(p => p[0].toUpperCase() + '.').join(' ');
+    },
+
+    thesisLabel(pub) {
+        return (pub.type || '').toLowerCase() === 'mastersthesis' ? "Master's thesis" : 'PhD dissertation';
     },
 
     formatApa(pub) {
@@ -152,7 +181,7 @@ const CONFIG = {
             if (pub.publisher) venueStr += `. ${pub.publisher}`;
             venueStr += '. ';
         } else if (pub.school) {
-            venueStr = `PhD dissertation, ${pub.school}. `;
+            venueStr = `${this.thesisLabel(pub)}, ${pub.school}. `;
         }
         const doiStr = pub.doi ? `https://doi.org/${pub.doi}` : (pub.url || '');
         return ((authorStr ? authorStr + ' ' : '') + yearStr + titleStr + venueStr + doiStr).trim();
@@ -188,7 +217,7 @@ const CONFIG = {
             if (pub.pages) venueStr += `, pp. ${pub.pages}`;
             venueStr += '.';
         } else if (pub.school) {
-            venueStr = `PhD dissertation, ${pub.school}, ${pub.year}.`;
+            venueStr = `${this.thesisLabel(pub)}, ${pub.school}, ${pub.year}.`;
         } else if (pub.year) {
             venueStr = `${pub.year}.`;
         }
@@ -219,7 +248,7 @@ const CONFIG = {
         if (pub.volume) lines.push('VL  - ' + pub.volume);
         if (pub.number) lines.push('IS  - ' + pub.number);
         if (pub.pages) {
-            const p = pub.pages.split(/--|-/);
+            const p = pub.pages.split(/--|[-–—]/);
             if (p[0]) lines.push('SP  - ' + p[0].trim());
             if (p[1]) lines.push('EP  - ' + p[1].trim());
         }

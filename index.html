@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
 
     <!-- Application scripts -->
-    <script src="config.js?v=3"></script>
+    <script src="config.js?v=4"></script>
     <link rel="stylesheet" href="styles.css?v=3">
 </head>
 
@@ -89,7 +89,7 @@
                         <option value="">All Types</option>
                         <option value="article">Journal Articles</option>
                         <option value="inproceedings">Conference Papers</option>
-                        <option value="phdthesis">Dissertations / Theses</option>
+                        <option value="thesis">Dissertations / Theses</option>
                         <option value="misc">Preprints & Technical Reports</option>
                     </select>
 
@@ -178,7 +178,7 @@
                         </strong>
                         <span v-if="pub.volume"> • Vol. {{ pub.volume }}</span>
                         <span v-if="pub.number">, No. {{ pub.number }}</span>
-                        <span v-if="pub.pages">, pp. {{ pub.pages }}</span>
+                        <span v-if="pub.pages">, pp. {{ pub.pages.replace(/--/g, '–') }}</span>
                         <span v-if="pub.year"> • {{ pub.year }}</span>
                         <span v-if="pub.date_added" style="opacity: 0.75;"> • Added {{ pub.date_added }}</span>
                     </p>
@@ -237,8 +237,8 @@
                             <div class="citation-block">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span class="citation-label">APA 7th Edition</span>
-                                    <button @click="copyText(getApaText(pub), pub, 'copiedCite')" class="drawer-btn">
-                                        {{ pub.copiedCite ? '✓ Copied!' : 'Copy APA' }}
+                                    <button @click="copyText(getApaText(pub), pub, 'copiedApa')" class="drawer-btn">
+                                        {{ pub.copiedApa ? '✓ Copied!' : 'Copy APA' }}
                                     </button>
                                 </div>
                                 <div class="citation-text">{{ getApaText(pub) }}</div>
@@ -246,8 +246,8 @@
                             <div class="citation-block">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <span class="citation-label">IEEE Style</span>
-                                    <button @click="copyText(getIeeeText(pub), pub, 'copiedCite')" class="drawer-btn">
-                                        {{ pub.copiedCite ? '✓ Copied!' : 'Copy IEEE' }}
+                                    <button @click="copyText(getIeeeText(pub), pub, 'copiedIeee')" class="drawer-btn">
+                                        {{ pub.copiedIeee ? '✓ Copied!' : 'Copy IEEE' }}
                                     </button>
                                 </div>
                                 <div class="citation-text">{{ getIeeeText(pub) }}</div>
@@ -309,7 +309,7 @@
         </footer>
     </div>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=4"></script>
 </body>
 
 </html>
