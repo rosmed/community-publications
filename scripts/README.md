@@ -1,4 +1,4 @@
-# SlicerROS2 Publications Scripts
+# ROSMed Publications Scripts
 
 Utility scripts for maintaining and updating `publications.bib`.
 

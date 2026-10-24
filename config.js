@@ -18,12 +18,18 @@ const CONFIG = {
         } catch (error) {
             this.LIBRARY_MAP = {
                 'SlicerROS2': 'SlicerROS2',
-                'ROS2_IGTL': 'ROS2_IGTL',
-                'ROS_IGTL': 'ROS_IGTL'
+                'ROS2_IGTL': 'ROS2-IGTL-Bridge',
+                'ROS_IGTL': 'ROS-IGTL-Bridge',
+                'ROS2_IGTL_Bridge': 'ROS2-IGTL-Bridge',
+                'ROS_IGTL_Bridge': 'ROS-IGTL-Bridge',
+                'ros2_igtl_bridge': 'ROS2-IGTL-Bridge',
+                'ros_igtl_bridge': 'ROS-IGTL-Bridge',
+                'ROS2-IGTL-Bridge': 'ROS2-IGTL-Bridge',
+                'ROS-IGTL-Bridge': 'ROS-IGTL-Bridge'
             };
             this.LIBRARY_DESCRIPTIONS = {
                 'SlicerROS2': '3D Slicer module providing native ROS 2 node communication, tf2 tracking, and robot rendering.',
-                'ROS2_IGTL': 'ROS 2 OpenIGTLink bridge node for streaming medical data and tracking between ROS 2 and 3D Slicer.',
+                'ROS2_IGTL': 'ROS 2 OpenIGTLink bridge node (ROS2-IGTL-Bridge) for streaming medical data and tracking.',
                 'ROS_IGTL': 'The original ROS 1 OpenIGTLink bridge (ROS-IGTL-Bridge) for image-guided therapy.'
             };
             return false;

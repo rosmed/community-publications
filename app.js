@@ -34,10 +34,11 @@ createApp({
 
             // Library filter (rosmed_library)
             if (this.selectedLibrary) {
+                const target = this.selectedLibrary.replace(/[-_]/g, '').toLowerCase();
                 filtered = filtered.filter(pub => {
                     if (!pub.rosmed_library) return false;
-                    const libs = pub.rosmed_library.split(' and ').map(p => p.trim());
-                    return libs.includes(this.selectedLibrary);
+                    const libs = pub.rosmed_library.split(' and ').map(p => p.trim().replace(/[-_]/g, '').toLowerCase());
+                    return libs.includes(target);
                 });
             }
 
@@ -118,13 +119,17 @@ createApp({
             return CONFIG.calculateTotalAuthors(this.filteredPublications);
         },
         countSlicerRos2() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('SlicerROS2')).length;
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.toLowerCase().includes('slicerros2')).length;
         },
         countRos2Igtl() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS2_IGTL')).length;
+            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.toLowerCase().includes('ros2') && p.rosmed_library.toLowerCase().includes('igtl')).length;
         },
         countRosIgtl() {
-            return this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes('ROS_IGTL')).length;
+            return this.publications.filter(p => {
+                if (!p.rosmed_library) return false;
+                const lower = p.rosmed_library.toLowerCase();
+                return lower.includes('ros') && lower.includes('igtl') && !lower.includes('ros2');
+            }).length;
         }
     },
     methods: {
@@ -240,9 +245,10 @@ createApp({
         },
 
         libraryBadgeClass(id) {
-            if (id === 'SlicerROS2') return 'badge-slicer';
-            if (id === 'ROS2_IGTL') return 'badge-ros2-igtl';
-            if (id === 'ROS_IGTL') return 'badge-ros-igtl';
+            const clean = (id || '').replace(/[-_]/g, '').toLowerCase();
+            if (clean === 'slicerros2') return 'badge-slicer';
+            if (clean.includes('ros2') && clean.includes('igtl')) return 'badge-ros2-igtl';
+            if (clean.includes('ros') && clean.includes('igtl')) return 'badge-ros-igtl';
             return 'badge-type';
         },
 

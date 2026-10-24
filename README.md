@@ -1,10 +1,11 @@
-# SlicerROS2 & ROS2-IGTL Community Publications
+# ROSMed Community Publications
 
-Curated bibliography of research publications, theses, preprints, and open-source works that integrate **3D Slicer** with **ROS 2** (Robot Operating System 2), focusing on:
+Curated bibliography of research publications, theses, preprints, and open-source works across the **ROSMed** community integrating **3D Slicer** and medical robotics with **ROS** and **ROS 2**, focusing on:
 * **[SlicerROS2](https://github.com/rosmed/slicer_ros2_module)** (`slicer_ros2_module`): native ROS 2 node communication, `tf2` coordinate frame integration, and real-time robot visualization in 3D Slicer.
-* **[ros2_igtl_bridge](https://github.com/openigtlink/ros2_igtl_bridge)**: OpenIGTLink protocol bridge facilitating network streaming between ROS 2 and medical navigation/computing software.
+* **[ROS2-IGTL-Bridge](https://github.com/openigtlink/ros2_igtl_bridge)** (`ros2_igtl_bridge`): OpenIGTLink protocol bridge facilitating network streaming between ROS 2 and medical navigation/computing software.
+* **[ROS-IGTL-Bridge](https://github.com/openigtlink/ROS-IGTL-Bridge)** (`ROS-IGTL-Bridge`): the original OpenIGTLink bridge interfacing image-guided therapy with ROS 1.
 
-The live web interface allows searching, filtering by package and publication type, viewing abstracts, and exporting citations (BibTeX, APA, IEEE, RIS).
+The live web interface allows searching, filtering by library and publication type, viewing abstracts, and exporting citations (BibTeX, APA, IEEE, RIS).
 
 ---
 
@@ -14,10 +15,10 @@ To browse the publications locally:
 
 ```zsh
 # Start a simple local HTTP server:
-python3 -m http.server 8000
+python3 -m http.server 8080
 
 # Open in your browser:
-# http://localhost:8000
+# http://localhost:8080
 ```
 
 When hosted via GitHub Pages, the site runs directly from the root of this repository.
@@ -31,8 +32,8 @@ In addition to standard BibTeX fields (`author`, `title`, `year`, `journal`, `do
 ### `rosmed_library`
 Indicates the software package(s) or library used or discussed in the work:
 * `rosmed_library={SlicerROS2}`: works using or extending `SlicerROS2`
-* `rosmed_library={ROS2_IGTL}`: works using `ros2_igtl_bridge` (ROS 2 OpenIGTLink bridge)
-* `rosmed_library={ROS_IGTL}`: works using `ROS-IGTL-Bridge` (ROS 1 OpenIGTLink bridge)
+* `rosmed_library={ROS2_IGTL}`: works using `ROS2-IGTL-Bridge`
+* `rosmed_library={ROS_IGTL}`: works using `ROS-IGTL-Bridge`
 * `rosmed_library={SlicerROS2 and ROS2_IGTL}`: works using or benchmarking multiple libraries
 
 ### `date_added`

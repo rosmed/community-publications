@@ -130,15 +130,19 @@ createApp({
             // 2. Breakdown by rosmed_library
             const ctxPkg = document.getElementById('chartPackage');
             if (ctxPkg) {
-                const slicerOnly = this.publications.filter(p => p.rosmed_library === 'SlicerROS2').length;
-                const ros2IgtlOnly = this.publications.filter(p => p.rosmed_library === 'ROS2_IGTL').length;
-                const rosIgtlOnly = this.publications.filter(p => p.rosmed_library === 'ROS_IGTL').length;
+                const isSlicer = lib => lib.toLowerCase().includes('slicerros2');
+                const isRos2Igtl = lib => lib.toLowerCase().includes('ros2') && lib.toLowerCase().includes('igtl');
+                const isRosIgtl = lib => lib.toLowerCase().includes('ros') && lib.toLowerCase().includes('igtl') && !lib.toLowerCase().includes('ros2');
+
+                const slicerOnly = this.publications.filter(p => isSlicer(p.rosmed_library) && !isRos2Igtl(p.rosmed_library) && !isRosIgtl(p.rosmed_library)).length;
+                const ros2IgtlOnly = this.publications.filter(p => isRos2Igtl(p.rosmed_library) && !isSlicer(p.rosmed_library) && !isRosIgtl(p.rosmed_library)).length;
+                const rosIgtlOnly = this.publications.filter(p => isRosIgtl(p.rosmed_library) && !isSlicer(p.rosmed_library) && !isRos2Igtl(p.rosmed_library)).length;
                 const multiLib = this.publications.filter(p => p.rosmed_library && p.rosmed_library.includes(' and ')).length;
 
                 this.chartInstances.pkg = new Chart(ctxPkg, {
                     type: 'doughnut',
                     data: {
-                        labels: ['SlicerROS2 Only', 'ROS2_IGTL Only', 'ROS_IGTL Only', 'Multi-Library / Integrated'],
+                        labels: ['SlicerROS2 Only', 'ROS2-IGTL-Bridge Only', 'ROS-IGTL-Bridge Only', 'Multi-Library / Integrated'],
                         datasets: [{
                             data: [slicerOnly, ros2IgtlOnly, rosIgtlOnly, multiLib],
                             backgroundColor: [colors.slicer, colors.ros2_igtl, colors.ros_igtl, colors.accent],

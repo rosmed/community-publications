@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slicer & ROS Community Publications</title>
+    <title>ROSMed Community Publications</title>
     <meta name="description"
-        content="Explore curated research publications, theses, and technical papers integrating 3D Slicer with ROS and ROS 2, featuring SlicerROS2, ROS2_IGTL, and ROS_IGTL.">
+        content="Explore curated research publications, theses, and technical papers across the ROSMed community, featuring SlicerROS2, ROS2-IGTL-Bridge, and ROS-IGTL-Bridge.">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
 
     <script>
@@ -22,8 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@3.5.42/dist/vue.global.prod.js"></script>
 
     <!-- Application scripts -->
-    <script src="config.js?v=2"></script>
-    <link rel="stylesheet" href="styles.css?v=2">
+    <script src="config.js?v=3"></script>
+    <link rel="stylesheet" href="styles.css?v=3">
 </head>
 
 <body>
@@ -32,16 +32,18 @@
             <div class="container">
                 <div class="header-top">
                     <div class="header-brand">
-                        <span class="logo-badge">ROS 2 / ROS</span>
+                        <span class="logo-badge">ROSMed</span>
                         <div>
-                            <h1>Slicer & ROS Community Publications</h1>
+                            <h1>ROSMed Community Publications</h1>
                             <p class="subtitle">
-                                Research publications integrating <strong>3D Slicer</strong> with <strong>ROS & ROS 2</strong>
-                                (SlicerROS2, ROS2_IGTL, and ROS_IGTL) •
+                                Research publications across the <strong>ROSMed</strong> ecosystem
+                                (SlicerROS2, ROS2-IGTL-Bridge, and ROS-IGTL-Bridge) •
+                                <a href="https://github.com/rosmed" target="_blank"
+                                    rel="noopener noreferrer">GitHub ROSMed</a> •
                                 <a href="https://github.com/rosmed/slicer_ros2_module" target="_blank"
-                                    rel="noopener noreferrer">GitHub SlicerROS2</a> •
+                                    rel="noopener noreferrer">SlicerROS2</a> •
                                 <a href="https://github.com/openigtlink/ros2_igtl_bridge" target="_blank"
-                                    rel="noopener noreferrer">GitHub ROS2-IGTL</a>
+                                    rel="noopener noreferrer">ROS2-IGTL-Bridge</a>
                             </p>
                         </div>
                     </div>
@@ -79,8 +81,8 @@
                     <select v-model="selectedLibrary" class="filter-select" title="Filter by ROS / Slicer Library">
                         <option value="">All Libraries</option>
                         <option value="SlicerROS2">SlicerROS2</option>
-                        <option value="ROS2_IGTL">ROS2_IGTL (ros2_igtl_bridge)</option>
-                        <option value="ROS_IGTL">ROS_IGTL (ROS-IGTL-Bridge)</option>
+                        <option value="ROS2_IGTL">ROS2-IGTL-Bridge</option>
+                        <option value="ROS_IGTL">ROS-IGTL-Bridge</option>
                     </select>
 
                     <!-- Type Filter -->
@@ -140,11 +142,11 @@
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">{{ countRos2Igtl }}</span>
-                    <span class="stat-label">ROS2_IGTL</span>
+                    <span class="stat-label">ROS2-IGTL-Bridge</span>
                 </div>
                 <div class="stat-card">
                     <span class="stat-number">{{ countRosIgtl }}</span>
-                    <span class="stat-label">ROS_IGTL</span>
+                    <span class="stat-label">ROS-IGTL-Bridge</span>
                 </div>
             </div>
 
@@ -299,7 +301,7 @@
         <footer>
             <div class="container">
                 <p>
-                    <strong>Slicer & ROS Community Publications</strong> is an open-source bibliography curated by the medical robotics community.
+                    <strong>ROSMed Community Publications</strong> is an open-source bibliography curated by the medical robotics community.
                 </p>
                 <p style="margin-top: 0.4rem;">
                     To add your publication, fork the repository, update <code>publications.bib</code> (using the <code>rosmed_library</code> tag), and submit a pull request.

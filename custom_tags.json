@@ -7,13 +7,13 @@
     },
     {
       "id": "ROS2_IGTL",
-      "name": "ROS2_IGTL",
-      "description": "ROS 2 OpenIGTLink bridge node (ros2_igtl_bridge) facilitating network communication between ROS 2 and medical image computing or navigation platforms."
+      "name": "ROS2-IGTL-Bridge",
+      "description": "ROS 2 OpenIGTLink bridge node facilitating network communication between ROS 2 and medical image computing or navigation platforms."
     },
     {
       "id": "ROS_IGTL",
-      "name": "ROS_IGTL",
-      "description": "The original ROS 1 OpenIGTLink bridge (ROS-IGTL-Bridge) providing network interfacing for image-guided therapy in the ROS 1 ecosystem."
+      "name": "ROS-IGTL-Bridge",
+      "description": "ROS 1 OpenIGTLink bridge node facilitating network communication between ROS 1 and medical image computing or navigation platforms."
     }
   ]
 }
