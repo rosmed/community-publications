@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "title": "SlicerRoboTMS: An Open-Source 3D Slicer Extension for Robot-Assisted Transcranial Magnetic Stimulation",
+    "doi": "10.48550/arxiv.2604.25661",
+    "year": 2026,
+    "rejected_on": "2026-10-24",
+    "reason": "they don't use rosmed software"
+  },
+  {
+    "title": "NAVIUS: Navigated Augmented Reality Visualization for Ureteroscopic Surgery",
+    "doi": "10.1007/978-3-032-05141-7_42",
+    "year": 2025,
+    "rejected_on": "2026-10-24",
+    "reason": "they don't use rosmed software"
+  }
+]

@@ -1,20 +1,3 @@
-@misc{Howell2026,
-  author = {Lewis Howell and Manisha Waterston and Tze Min Wah and James H. Chandler and James R. McLaughlan},
-  title = {A Unified Platform and Quality Assurance Framework for 3D Ultrasound Reconstruction with Robotic, Optical, and Electromagnetic Tracking},
-  year = {2026},
-  month = {mar},
-  doi = {10.48550/arxiv.2603.20077},
-  url = {https://arxiv.org/abs/2603.20077},
-  archiveprefix = {arXiv},
-  primaryclass = {cs.CV},
-  eprint = {2603.20077},
-  openaccesspdf = {https://arxiv.org/pdf/2603.20077.pdf},
-  howpublished = {arXiv preprint arXiv:2603.20077},
-  rosmed_library = {ROS_IGTL},
-  date_added = {2026-08-31},
-  abstract = {Three-dimensional (3D) Ultrasound (US) can facilitate diagnosis, treatment planning, and image-guided therapy. However, current studies rarely provide a comprehensive evaluation of volumetric accuracy and reproducibility, highlighting the need for robust Quality Assurance (QA) frameworks, particularly for tracked 3D US reconstruction using freehand or robotic acquisition. This study presents a QA framework for 3D US reconstruction and a flexible open source platform for tracked US research. A custom phantom containing geometric inclusions with varying symmetry properties enables straightforward evaluation of optical, electromagnetic, and robotic kinematic tracking for 3D US at different scanning speeds and insonation angles. A standardised pipeline performs real-time segmentation and 3D reconstruction of geometric targets (DSC = 0.97, FPS = 46) without GPU acceleration, followed by automated registration and comparison with ground-truth geometries. Applying this framework showed that our robotic 3D US achieves state-of-the-art reconstruction performance (DSC-3D = 0.94 +- 0.01, HD95 = 1.17 +- 0.12), approaching the spatial resolution limit imposed by the transducer. This work establishes a flexible experimental platform and a reproducible validation methodology for 3D US reconstruction. The proposed framework enables robust cross-platform comparisons and improved reporting practices, supporting the safe and effective clinical translation of 3D ultrasound in diagnostic and image-guided therapy applications.},
-}
-
 @mastersthesis{HaraLee2026,
   author = {Kaito Hara-Lee},
   title = {Medical Robot Motion Control: A Toolkit for Interactive, Patient-Specific Motion Planning in Medical Robotic Interventions},
@@ -22,12 +5,12 @@
   month = {sep},
   school = {Queen's University},
   address = {Kingston, Ontario, Canada},
-  type = {M.A.Sc. thesis},
   url = {https://hdl.handle.net/1974/36963},
   openaccesspdf = {https://queensu.scholaris.ca/bitstreams/fc9a872e-69d8-4bb6-ad66-8af2d26b7aeb/download},
   rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
   abstract = {Motion planning is critical in medical robotics, helping keep robots safe from delicate anatomy during a procedure. Current research is limited by the lack of a common platform for both robot motion planning and medical image visualization, which complicates the development of patient-specific, supervised autonomous robotic workflows. To close this gap, we present the Medical Robot Motion Control (Motion Control) toolkit, which extends SlicerROS2, an existing interface between 3D Slicer and ROS2, with interactive kinematic solving and motion planning. The Motion Control toolkit lets users define goal poses, plan and preview trajectories around patient-specific anatomy, and execute those trajectories on physical hardware, all within 3D Slicer. We demonstrate the toolkit on two benchtop testbeds simulating a robot-guided lumbar spine intervention. On both platforms, the toolkit successfully planned and executed trajectories to 10 anatomical targets on a 3D-printed spine phantom. Additional trials showed that the toolkit reliably avoided the phantom when computing trajectories. These results demonstrate that the Motion Control toolkit provides a publicly available foundation for image-guided, patient-specific motion-planning research.},
+  type = {M.A.Sc. thesis},
 }
 
 @misc{Kilmer2026,
@@ -47,21 +30,21 @@
   abstract = {Autonomous soft-tissue cancer surgery has been limited to interventions on organ surfaces, because current systems cannot perceive and adapt to anatomy once it deforms or is cut. We introduce the first vision-guided autonomous system capable of performing complete tumor resections for partial nephrectomy. Our system integrates conditional occupancy networks, trained entirely in a physics-based simulation, that infer full 3-D anatomy (tumor, margin tissue, and kidney) from single-view partial point clouds. These occupancy networks maintain intraoperative tracking even as tissue is cut and deformed, enabling adaptive planning and execution. The surgical platform combines a depth camera for capturing surface point clouds, dual robotic arms for electrosurgical cutting and vacuum-based tissue manipulation, and an autonomous control strategy for tumor resection. In patient-derived hydrogel phantoms under an open partial nephrectomy setting, the robot performed eight consecutive autonomous tumor resections comprising 77 electrosurgical cuts, with all cuts achieving negative surgical margins and 1.61 $\pm$ 0.48 mm mean absolute margin error. This work demonstrates, for the first time, a foundation for supervised autonomous closed-loop, imaging-driven, margin-negative tumor removal in phantoms.},
 }
 
-@misc{Bai2026,
-  author = {Wenzhi Bai and Yituo Guo and Bhaskar Basu and Andrew Weightman and Zhenhong Li},
-  title = {SlicerRoboTMS: An Open-Source 3D Slicer Extension for Robot-Assisted Transcranial Magnetic Stimulation},
+@misc{Howell2026,
+  author = {Lewis Howell and Manisha Waterston and Tze Min Wah and James H. Chandler and James R. McLaughlan},
+  title = {A Unified Platform and Quality Assurance Framework for 3D Ultrasound Reconstruction with Robotic, Optical, and Electromagnetic Tracking},
   year = {2026},
-  month = {apr},
-  doi = {10.48550/arxiv.2604.25661},
-  url = {https://arxiv.org/abs/2604.25661},
+  month = {mar},
+  doi = {10.48550/arxiv.2603.20077},
+  url = {https://arxiv.org/abs/2603.20077},
   archiveprefix = {arXiv},
-  primaryclass = {cs.RO},
-  eprint = {2604.25661},
-  openaccesspdf = {https://arxiv.org/pdf/2604.25661.pdf},
-  howpublished = {arXiv preprint arXiv:2604.25661},
-  rosmed_library = {SlicerROS2 and ROS2_IGTL},
+  primaryclass = {cs.CV},
+  eprint = {2603.20077},
+  openaccesspdf = {https://arxiv.org/pdf/2603.20077.pdf},
+  howpublished = {arXiv preprint arXiv:2603.20077},
+  rosmed_library = {ROS_IGTL},
   date_added = {2026-08-31},
-  abstract = {Robot-assisted Transcranial Magnetic Stimulation (Robo-TMS) is an image-guided robotic intervention that enhances the accuracy and reproducibility of conventional Transcranial Magnetic Stimulation (TMS), a widely used non-invasive brain stimulation procedure in clinical treatment and neuroscience research. Despite its potential, the development of Robo-TMS remains challenging due to the need for multidisciplinary expertise spanning medical imaging, computer vision, and robotics. This paper presents SlicerRoboTMS, an open-source 3D Slicer extension that provides a unified interaction infrastructure for Robo-TMS research. By leveraging 3D Slicer's medical image computing and visualisation capabilities, the extension supports Magnetic Resonance Imaging (MRI)-based neuronavigation and interfaces with robotic systems through standardised communication protocols and configurable system descriptions. An example integration is presented to demonstrate how SlicerRoboTMS can be incorporated into a representative Robo-TMS workflow. Designed to support diverse hardware configurations and rapid prototyping, SlicerRoboTMS lowers the barrier to entry and facilitates reproducible and extensible research in Robo-TMS. The extension is available at https://github.com/OpenRoboTMS/SlicerRoboTMS.},
+  abstract = {Three-dimensional (3D) Ultrasound (US) can facilitate diagnosis, treatment planning, and image-guided therapy. However, current studies rarely provide a comprehensive evaluation of volumetric accuracy and reproducibility, highlighting the need for robust Quality Assurance (QA) frameworks, particularly for tracked 3D US reconstruction using freehand or robotic acquisition. This study presents a QA framework for 3D US reconstruction and a flexible open source platform for tracked US research. A custom phantom containing geometric inclusions with varying symmetry properties enables straightforward evaluation of optical, electromagnetic, and robotic kinematic tracking for 3D US at different scanning speeds and insonation angles. A standardised pipeline performs real-time segmentation and 3D reconstruction of geometric targets (DSC = 0.97, FPS = 46) without GPU acceleration, followed by automated registration and comparison with ground-truth geometries. Applying this framework showed that our robotic 3D US achieves state-of-the-art reconstruction performance (DSC-3D = 0.94 +- 0.01, HD95 = 1.17 +- 0.12), approaching the spatial resolution limit imposed by the transducer. This work establishes a flexible experimental platform and a reproducible validation methodology for 3D US reconstruction. The proposed framework enables robust cross-platform comparisons and improved reporting practices, supporting the safe and effective clinical translation of 3D ultrasound in diagnostic and image-guided therapy applications.},
 }
 
 @article{ConnollyCAS2025,
@@ -81,6 +64,7 @@
   date_added = {2026-08-31},
   abstract = {Cancer resection surgery is unsuccessful if tumor tissue is left behind in the surgical cavity. Identifying the residual cancer requires additional imaging or postoperative histological analysis. Photoacoustic imaging can be used to image both the surface and depths of the resection cavity; however, its performance hinges on consistent probe placement and stable acoustic and optical coupling. As intra-cavity deployment of photoacoustic imaging is largely uncharted, several potential embodiments warrant rigorous investigation. We address this need with an open-source robotic testbed for intraoperative tumor-bed inspection using photoacoustic imaging. The platform integrates the da Vinci Research Kit, depth imaging, and electromagnetic tracking to automate cavity scanning and maintain repeatable probe trajectories. Using tissue-mimicking phantoms, we (i) demonstrate a novel imaging embodiment for photoacoustic tumor-bed inspection and (ii) show how this testbed can be used to investigate and optimize tumor bed inspection strategies and configurations. This study establishes the feasibility of detecting and mapping residual cancer within a simulated surgical cavity. The primary contribution is the testbed itself, designed for integration with existing surgical navigation workflows and rapid prototyping. This testbed serves as an essential foundation for systematic evaluation of photoacoustic, robot-assisted strategies for improving intraoperative margin assessment.},
 }
+
 
 @inproceedings{Farvolden2025,
   author = {Farvolden, Coleman and Hashtrudi-Zaad, Kian and Connolly, Laura and Barr, Colton and Fichtinger, Gabor},
@@ -142,25 +126,6 @@
   url = {http://dx.doi.org/10.31256/hsmr25.26},
   rosmed_library = {SlicerROS2},
   date_added = {2026-08-31},
-}
-
-@inproceedings{Acar2025,
-  author = {Ayberk Acar and Jumanh Atoum and Peter S. Connor and Clifford Pierre and Carisa N. Lynch and Nicholas L. Kavoussi and Jie Ying Wu},
-  title = {NAVIUS: Navigated Augmented Reality Visualization for Ureteroscopic Surgery},
-  booktitle = {Medical Image Computing and Computer Assisted Intervention -- MICCAI 2025},
-  series = {Lecture Notes in Computer Science},
-  year = {2025},
-  month = {sep},
-  pages = {433--443},
-  publisher = {Springer Nature Switzerland},
-  doi = {10.1007/978-3-032-05141-7_42},
-  url = {https://doi.org/10.1007/978-3-032-05141-7_42},
-  archiveprefix = {arXiv},
-  eprint = {2503.17511},
-  openaccesspdf = {https://arxiv.org/pdf/2503.17511.pdf},
-  rosmed_library = {SlicerROS2},
-  date_added = {2026-08-31},
-  abstract = {Ureteroscopy is the standard of care for diagnosing and treating kidney stones and tumors. However, current ureteroscopes have a limited field of view, requiring significant experience to adequately navigate the renal collecting system. This is evidenced by the fact that inexperienced surgeons have higher rates of missed stones. One-third of patients with residual stones require re-operation within 20 months. In order to aid surgeons to fully explore the kidney, this study presents the Navigated Augmented Reality Visualization for Ureteroscopic Surgery (NAVIUS) system. NAVIUS assists surgeons by providing 3D maps of the target anatomy, real-time scope positions, and preoperative imaging overlays. To enable real-time navigation and visualization, we integrate an electromagnetic tracker-based navigation pipeline with augmented reality visualizations. NAVIUS connects to 3D Slicer and Unity with OpenIGTLink, and uses HoloLens 2 as a holographic interface. We evaluate NAVIUS through a user study where surgeons conducted ureteroscopy on kidney phantoms with and without visual guidance. With our proposed system, we observed that surgeons explored more areas within the collecting system with NAVIUS (average 23.73\% increase), and NASA-TLX metrics were improved (up to 27.27\%). NAVIUS acts as a step towards better surgical outcomes and surgeons' experience. The codebase for the system will be available at: https://github.com/vu-maple-lab/NAVIUS.},
 }
 
 @article{Sahu2024,
